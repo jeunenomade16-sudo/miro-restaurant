@@ -1,0 +1,15 @@
+# Originaux redondants (remplacés par logo.png / hero.mp4)
+ChatGPT Image*.png
+SaveVid.Net_*.mp4
+
+# Ancien fichier cassé
+gallery;html.html
+
+# Captures temporaires
+shot-*.png
+
+# Dépendances / outils
+node_modules/
+.vercel/
+.DS_Store
+Thumbs.db

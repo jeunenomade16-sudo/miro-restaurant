@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Miro Restaurant & Lounge — Cuisine Méditerranéenne & Sushi · Alger</title>
+<meta name="description" content="Miro Restaurant & Lounge à Alger : cuisine française méditerranéenne aux influences italiennes, viandes maturées, poissons frais, paella et bar à sushi. Réservez votre table." />
+<link rel="icon" href="logo.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+<style>
+  :root{
+    --bg:#292520; /* Dark charcoal brown */
+    --bg-light:#e2d4c0; /* Beige */
+    --gold:#d6a86c; /* Sand/Gold */
+    --cream:#f8f2e9; 
+    --muted:#a3927f;
+    --line:rgba(214,168,108,.2);
+    --serif:'Cormorant Garamond',serif;
+    --sans:'Jost',sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{}
+  body{
+    background:var(--bg);
+    color:var(--cream);
+    font-family:var(--sans);
+    font-weight:400;
+    line-height:1.7;
+    overflow-x:hidden;
+  }
+  img{display:block;max-width:100%}
+  a{color:inherit;text-decoration:none}
+  ::selection{background:var(--gold);color:var(--bg)}
+
+  .wrap{max-width:1200px;margin:0 auto;padding:0 28px}
+  
+  .eyebrow{
+    font-size:.75rem;letter-spacing:.25em;text-transform:uppercase;
+    color:var(--gold);font-weight:500;margin-bottom:20px;
+  }
+  
+  /* Utility layout classes */
+  .split-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+  }
+  
+  .section-pad {
+    padding: 120px 0;
+  }
+  
+  .bg-light {
+    background-color: var(--bg-light);
+    color: var(--bg);
+  }
+  .bg-light .eyebrow { color: var(--bg); opacity: 0.7; }
+  .bg-light .title { color: var(--bg); }
+  .bg-light p { color: var(--bg); opacity: 0.8; }
+  
+  /* Typography */
+  h2.title{
+    font-family:var(--serif);font-weight:400;text-transform:uppercase;
+    font-size:clamp(3rem,6vw,5rem);line-height:1.05;letter-spacing:1px;
+    color: var(--cream);
+  }
+  h2.title.gold { color: var(--gold); }
+  
+  .reveal{opacity:0;transform:translateY(30px);transition:all 1s cubic-bezier(.2,.7,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+
+  /* NAV */
+  header.nav{
+    position:absolute;top:0;left:0;width:100%;z-index:50;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:24px 40px;
+  }
+  .nav .brand img{height:36px;filter:invert(1) brightness(1.6) sepia(1) hue-rotate(340deg) saturate(3) opacity(0.8);}
+  
+  .nav-links{display:flex;gap:30px;align-items:center}
+  .nav-links a{font-size:.85rem;letter-spacing:.05em;color:var(--cream);transition:.3s;}
+  .nav-links a:hover{color:var(--gold)}
+  
+  .btn{
+    display:inline-block;font-family:var(--sans);font-size:.8rem;letter-spacing:.1em;
+    padding:12px 24px;border:1px solid var(--gold);
+    color:var(--gold);transition:.35s;cursor:pointer;background:transparent;
+  }
+  .btn:hover{background:var(--gold);color:var(--bg)}
+  .btn.solid{background:var(--gold);color:var(--bg)}
+  .btn.solid:hover{background:var(--cream);border-color:var(--cream);color:var(--bg)}
+  
+  .burger{display:none;flex-direction:column;gap:6px;cursor:pointer}
+  .burger span{width:28px;height:1px;background:var(--cream)}
+
+  /* HERO */
+  .hero{
+    position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;
+    text-align:center;padding-top:80px;
+  }
+  .hero-bg {
+    position:absolute;inset:0;
+    width: 100%; height: 100%; object-fit: cover;
+    filter: brightness(0.5); z-index:0;
+  }
+  .hero-inner{position:relative;z-index:2;max-width:900px;padding: 0 20px;}
+  .hero h1{
+    font-family:var(--serif);font-weight:400;text-transform:uppercase;
+    font-size:clamp(4rem,9vw,7rem);line-height:1;letter-spacing:2px;
+    color:var(--cream);
+  }
+  .hero .sub{font-size:1.1rem;color:var(--gold);letter-spacing:.2em;text-transform:uppercase;margin-bottom:30px;margin-top:20px}
+  
+  .review-badge { display: inline-flex; align-items: center; gap: 15px; margin-top: 40px; justify-content: center; background: rgba(0,0,0,0.5); padding: 12px 24px; border-radius: 40px; border: 1px solid var(--line); backdrop-filter: blur(8px); }
+  .stars { color: var(--gold); font-size: 1.1rem; letter-spacing: 3px; }
+  .review-text { color: var(--cream); font-size: 0.95rem; }
+  .review-text strong { color: #fff; font-weight: 500; }
+  
+  /* TESTIMONIAL MARQUEE */
+  .testimonial-marquee { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 50px 0; overflow: hidden; background: var(--bg); display: flex; }
+  .marquee-track { display: flex; gap: 40px; animation: scroll-test 40s linear infinite; width: max-content; padding-left: 40px; }
+  .test-card { width: 380px; flex-shrink: 0; background: rgba(255,255,255,0.02); padding: 35px; border-radius: 8px; border: 1px solid var(--line); }
+  .test-card .stars { color: var(--gold); font-size: 1rem; margin-bottom: 15px; }
+  .test-card p { font-size: 1.05rem; color: var(--cream); font-style: italic; margin-bottom: 25px; line-height: 1.6; }
+  .test-card .author { font-size: 0.85rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); }
+  @keyframes scroll-test { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  /* ABOUT (Image on right, text on left style) */
+  .split-about {
+    align-items: center;
+  }
+  .split-about-text {
+    padding: 60px 80px;
+  }
+  .split-about-img {
+    height: 100%;
+    min-height: 600px;
+    background: url('https://scaneatio.s3.eu-central-1.amazonaws.com/items/7qnaMtWpa97OECAyvb3tMTWWndRUcb1777828634.JPG') center/cover;
+  }
+
+  /* FLAVORS THAT STAY (Centered big text with background image) */
+  .flavors {
+    position: relative;
+    padding: 180px 20px;
+    text-align: center;
+    background: url('https://scaneatio.s3.eu-central-1.amazonaws.com/items/sIGtYP0o6pI8jyXmugY5TVaqKDKX6y1778077870.jpg') center/cover fixed;
+  }
+  .flavors::before {
+    content: ''; position: absolute; inset: 0; background: rgba(41,37,32,0.7);
+  }
+  .flavors .wrap { position: relative; z-index: 1; }
+  .flavors h2.title { color: var(--cream); font-size: clamp(3rem,8vw,6.5rem); }
+
+  /* MENU HIGHLIGHTS & SPLIT */
+  .dish-grid{display:flex;flex-direction:column;gap:0;}
+  .dish{display:flex;justify-content:space-between;align-items:baseline;padding:20px 0;border-bottom:1px solid var(--line)}
+  .dish .d-name{font-size:1.15rem;font-weight:400;color:var(--cream);}
+  .dish .d-name small{display:block;color:var(--muted);font-size:.9rem;font-weight:300;margin-top:6px}
+  .dish .d-price{font-family:var(--sans);font-size:1.15rem;color:var(--gold);white-space:nowrap;margin-left:20px;}
+
+  /* DRINKS SECTION */
+  .drinks-text { padding: 100px 80px; }
+  .drinks-grid .d-name { color: var(--bg); font-weight: 500; }
+  .drinks-grid .d-price { color: var(--bg); font-weight: 600; }
+  .drinks-grid .dish { border-bottom-color: rgba(41,37,32,0.15); }
+  .drinks-images { position: relative; background: var(--bg); min-height: 600px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+  .d-img { position: absolute; width: 45%; height: 60%; background-size: cover; background-position: center; border-radius: 4px; box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
+  .d-img-1 { top: 10%; left: 10%; z-index: 2; }
+  .d-img-2 { bottom: 10%; right: 10%; z-index: 1; }
+
+  /* GIFT CARD */
+  .gift-card-section { position: relative; }
+
+  /* GALLERY CAROUSEL */
+  .food-track { display: flex; gap: 20px; overflow-x: auto; padding-bottom: 20px; scrollbar-width: none; }
+  .food-track::-webkit-scrollbar { display: none; }
+  .food-card { flex: 0 0 320px; position: relative; height: 400px; }
+  .food-card img { width: 100%; height: 100%; object-fit: cover; }
+  .food-name { position: absolute; bottom: 0; left: 0; width: 100%; padding: 30px 20px 20px; background: linear-gradient(transparent, rgba(41,37,32,0.9)); font-family: var(--serif); font-size: 1.4rem; color: var(--cream); }
+  .food-name small { display: block; font-family: var(--sans); font-size: .75rem; letter-spacing: .15em; color: var(--gold); text-transform: uppercase; margin-top: 5px; }
+
+  /* VISIT / LIGHT BG SECTION */
+  .visit-section {
+    padding: 120px 0;
+    text-align: center;
+  }
+  .info-blocks {
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+    margin-top: 60px;
+    flex-wrap: wrap;
+  }
+  .info-block {
+    text-align: left;
+    max-width: 300px;
+  }
+  .info-block h4 {
+    font-family: var(--serif);
+    font-size: 1.5rem;
+    color: var(--bg);
+    margin-bottom: 12px;
+  }
+  
+  /* MEGA FOOTER */
+  .mega-footer {
+    background: var(--bg);
+    padding: 80px 40px 40px;
+    border-top: 1px solid var(--line);
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+  }
+  .footer-links-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+  }
+  .footer-col h5 {
+    color: var(--cream);
+    font-family: var(--sans);
+    font-weight: 500;
+    margin-bottom: 20px;
+    font-size: 1rem;
+  }
+  .footer-col a {
+    display: block;
+    color: var(--muted);
+    margin-bottom: 12px;
+    font-size: .9rem;
+    transition: .3s;
+  }
+  .footer-col a:hover {
+    color: var(--gold);
+  }
+  .footer-brand {
+    font-family: var(--sans);
+    font-size: clamp(4rem, 12vw, 12rem);
+    font-weight: 400;
+    color: var(--gold);
+    text-align: center;
+    line-height: 0.8;
+    letter-spacing: -2px;
+  }
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    color: var(--muted);
+    font-size: .8rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+    border-top: 1px solid var(--line);
+    padding-top: 20px;
+  }
+
+  @media(max-width:880px){
+    .nav-links{display:none;}
+    .burger{display:flex}
+    .split-section{grid-template-columns:1fr;}
+    .split-about-img{min-height:400px;}
+    .drinks-images{min-height:400px;}
+    .d-img-1 { top: 15%; left: 5%; width: 50%; height: 70%; }
+    .d-img-2 { bottom: 15%; right: 5%; width: 50%; height: 70%; }
+    .footer-links-grid{grid-template-columns:1fr 1fr;}
+    .split-about-text, .drinks-text { padding: 60px 30px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<header class="nav" id="nav">
+  <div class="nav-links">
+    <a href="index.html">Accueil</a>
+    <a href="menu.html">La Carte</a>
+    <a href="#about">Le Lieu</a>
+    <a href="gallery.html">Galerie d'Art</a>
+  </div>
+  <a href="index.html" class="brand">
+    <img src="logo.png" alt="Miro Restaurant" />
+  </a>
+  <div class="nav-links">
+    <a href="https://www.instagram.com/miro.restaurant" target="_blank">Instagram</a>
+    <a href="#visit">Contact</a>
+    <a href="#visit" class="btn solid">Réserver</a>
+  </div>
+  <div class="burger" id="burger"><span></span><span></span><span></span></div>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <video class="hero-bg" autoplay muted loop playsinline poster="gallery_interior.png">
+    <source src="hero.mp4" type="video/mp4" />
+  </video>
+  <div class="hero-inner reveal">
+    <div class="sub">Gastronomie Méditerranéenne</div>
+    <h1>Miro<br>Restaurant</h1>
+    <p style="margin-top: 20px; color: var(--cream); font-size: 1.1rem; max-width: 600px; margin-left: auto; margin-right: auto;">Cuisine française aux accents méditerranéens et italiens, viandes maturées, poissons frais et bar à sushi raffiné.</p>
+    
+    <div class="review-badge reveal">
+      <div class="stars">★★★★★</div>
+      <div class="review-text"><strong>4.8</strong>/5 basé sur <strong>2 340</strong> avis</div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIAL MARQUEE -->
+<div class="testimonial-marquee">
+  <div class="marquee-track">
+    <div class="test-card">
+      <div class="stars">★★★★★</div>
+      <p>"Toujours aussi délicieux. Le personnel est incroyable et attentionné. Mon restaurant préféré à Alger."</p>
+      <div class="author">Amine T.</div>
+    </div>
+    <div class="test-card">
+      <div class="stars">★★★★★</div>
+      <p>"Le restaurant est très propre, la nourriture est incroyable. Vous ne regretterez pas d'y avoir mangé."</p>
+      <div class="author">Sarah M.</div>
+    </div>
+    <div class="test-card">
+      <div class="stars">★★★★★</div>
+      <p>"J'ai mangé l'un des meilleurs plats autour... T-Bone, Sushi, tout était incroyable."</p>
+      <div class="author">Karim B.</div>
+    </div>
+    <div class="test-card">
+      <div class="stars">★★★★★</div>
+      <p>"Superbe décoration, ambiance très classe, plats copieux et délicieux !"</p>
+      <div class="author">Lydia C.</div>
+    </div>
+    <!-- Duplicate for infinite scroll -->
+    <div class="test-card">
+      <div class="stars">★★★★★</div>
+      <p>"Toujours aussi délicieux. Le personnel est incroyable et attentionné. Mon restaurant préféré à Alger."</p>
+      <div class="author">Amine T.</div>
+    </div>
+    <div class="test-card">
+      <div class="stars">★★★★★</div>
+      <p>"Le restaurant est très propre, la nourriture est incroyable. Vous ne regretterez pas d'y avoir mangé."</p>
+      <div class="author">Sarah M.</div>
+    </div>
+    <div class="test-card">
+      <div class="stars">★★★★★</div>
+      <p>"J'ai mangé l'un des meilleurs plats autour... T-Bone, Sushi, tout était incroyable."</p>
+      <div class="author">Karim B.</div>
+    </div>
+    <div class="test-card">
+      <div class="stars">★★★★★</div>
+      <p>"Superbe décoration, ambiance très classe, plats copieux et délicieux !"</p>
+      <div class="author">Lydia C.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT SPLIT -->
+<section class="split-section split-about" id="about">
+  <div class="split-about-text reveal">
+    <div class="eyebrow">Ancré dans l'Expérience</div>
+    <h2 class="title">Une Cuisine<br>Généreuse</h2>
+    <p style="margin-top: 30px; font-size: 1.1rem; color: var(--muted);">Chez Miro, chaque assiette raconte une rencontre : la rigueur de la gastronomie française, la chaleur de la Méditerranée et l'élégance de la cuisine italienne. Des entrées délicates aux viandes grillées sur la braise, tout est pensé pour les amoureux du goût.</p>
+    <a href="menu.html" class="btn" style="margin-top: 40px;">Voir la Carte</a>
+  </div>
+  <div class="split-about-img reveal"></div>
+</section>
+
+<!-- FLAVORS THAT STAY -->
+<section class="flavors">
+  <div class="wrap reveal">
+    <h2 class="title">Des Saveurs<br>Mémorables</h2>
+    <p style="margin-top: 20px; font-size: 1.1rem; color: var(--cream);">D'une hospitalité chaleureuse à des saveurs audacieuses, chaque détail raconte une histoire.</p>
+  </div>
+</section>
+
+<!-- SIGNATURE PLATES SPLIT -->
+<section class="split-section split-about" id="signature">
+  <div class="split-about-text reveal">
+    <div class="eyebrow">Plats Signatures</div>
+    <h2 class="title gold">Racines<br>Classiques</h2>
+    <p style="margin-top: 20px; font-size: 1.1rem; color: var(--muted); margin-bottom: 40px;">Chaque plat reflète notre passion — des recettes peaufinées par l'expérience et pensées pour le palais d'aujourd'hui. Des entrées délicates aux viandes d'exception, nous honorons notre héritage tout en accueillant chaque invité avec chaleur.</p>
+    
+    <div class="dish-grid">
+      <div class="dish"><div class="d-text"><span class="d-name">Tapas de champignons</span><small>à la provençale</small></div><span class="d-price">2 100 DA</span></div>
+      <div class="dish"><div class="d-text"><span class="d-name">Burrata</span><small>crémeuse, huile d'olive</small></div><span class="d-price">2 400 DA</span></div>
+      <div class="dish"><div class="d-text"><span class="d-name">T-Bone Grillé sur Braise</span><small>viande maturée d'exception</small></div><span class="d-price">6 200 DA</span></div>
+      <div class="dish"><div class="d-text"><span class="d-name">Paella</span><small>pour 2 personnes, fruits de mer</small></div><span class="d-price">8 200 DA</span></div>
+      <div class="dish"><div class="d-text"><span class="d-name">Sashimi Saumon</span><small>pêche fraîche du jour</small></div><span class="d-price">3 800 DA</span></div>
+    </div>
+    
+    <div style="margin-top: 40px;">
+      <a href="menu.html" class="btn solid">Voir le Menu Complet</a>
+    </div>
+  </div>
+  <div class="split-about-img reveal" style="background-image: url('https://scaneatio.s3.eu-central-1.amazonaws.com/items/sIGtYP0o6pI8jyXmugY5TVaqKDKX6y1778077870.jpg');"></div>
+</section>
+
+<!-- DRINKS SECTION -->
+<section class="split-section" id="drinks">
+  <div class="drinks-images">
+    <div class="d-img d-img-1 reveal" style="background-image: url('https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&q=80');"></div>
+    <div class="d-img d-img-2 reveal" style="background-image: url('https://images.unsplash.com/photo-1536935338788-846bb9981813?auto=format&fit=crop&q=80');"></div>
+  </div>
+  <div class="drinks-text bg-light reveal">
+    <div class="eyebrow">Le Bar</div>
+    <h2 class="title">Boissons &<br>Cocktails</h2>
+    <p style="margin-top: 20px; font-size: 1.1rem; margin-bottom: 40px;">Des mocktails créations maison aux classiques revisités, chaque boisson est pensée pour s'accorder parfaitement avec votre repas.</p>
+    
+    <div class="dish-grid drinks-grid">
+      <div class="dish"><div class="d-text"><span class="d-name">Mojito Signature</span><small>Menthe fraîche, citron vert, touche secrète</small></div><span class="d-price">800 DA</span></div>
+      <div class="dish"><div class="d-text"><span class="d-name">Virgin Piña Colada</span><small>Ananas, crème de coco</small></div><span class="d-price">900 DA</span></div>
+      <div class="dish"><div class="d-text"><span class="d-name">Passion Fruit Fizz</span><small>Fruit de la passion, eau gazeuse, gingembre</small></div><span class="d-price">850 DA</span></div>
+      <div class="dish"><div class="d-text"><span class="d-name">Thé Glacé Maison</span><small>Pêche infusée, romarin</small></div><span class="d-price">600 DA</span></div>
+    </div>
+    
+    <div style="margin-top: 40px;">
+      <a href="menu.html#boissons" class="btn">Carte des Boissons</a>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY CAROUSEL -->
+<section style="padding: 120px 0 120px 28px;">
+  <div class="food-track reveal">
+    <div class="food-card"><img src="https://scaneatio.s3.eu-central-1.amazonaws.com/items/sIGtYP0o6pI8jyXmugY5TVaqKDKX6y1778077870.jpg" alt="T-Bone"><div class="food-name">T-Bone Grillé<small>Viandes</small></div></div>
+    <div class="food-card"><img src="https://scaneatio.s3.eu-central-1.amazonaws.com/items/azhgT4IQePRWMcJwbIMqcYHcCzBIHb1777905380.jpeg" alt="Dragon Maki"><div class="food-name">Dragon Maki<small>Sushi</small></div></div>
+    <div class="food-card"><img src="https://scaneatio.s3.eu-central-1.amazonaws.com/items/CxskxIwmTsuhKdzZUUUYB9ZbJuuwfH1777837956.JPG" alt="Loup de mer"><div class="food-name">Loup de mer<small>Poissons</small></div></div>
+    <div class="food-card"><img src="https://scaneatio.s3.eu-central-1.amazonaws.com/items/cY9EIcVFOpvWKrJsnDmtqKcTQPyr8I1777837536.JPG" alt="Salade"><div class="food-name">Salade César<small>Entrées</small></div></div>
+    <div class="food-card"><img src="https://scaneatio.s3.eu-central-1.amazonaws.com/items/iAFcy0fzzevnttk8D7dMZhn9asHUCd1777828266.JPG" alt="Dessert"><div class="food-name">Fondant au chocolat<small>Desserts</small></div></div>
+  </div>
+</section>
+
+<!-- GIFT CARD -->
+<section class="gift-card-section reveal" style="border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);">
+  <div class="wrap" style="text-align: center; padding: 120px 0;">
+    <div class="eyebrow">Partager l'Expérience</div>
+    <h2 class="title gold">Offrez le Goût<br>de la Tradition</h2>
+    <p style="margin: 20px auto 40px; font-size: 1.1rem; color: var(--cream); max-width: 500px;">Pour un anniversaire, une célébration ou un simple merci, une carte cadeau Miro rassemble autour de saveurs inoubliables.</p>
+    <a href="#visit" class="btn solid">Commander une Carte</a>
+  </div>
+</section>
+
+<!-- VISIT LIGHT SECTION -->
+<section class="visit-section bg-light" id="visit">
+  <div class="wrap reveal">
+    <div class="eyebrow">L'Expérience</div>
+    <h2 class="title">Nous Trouver</h2>
+    <div class="info-blocks">
+      <div class="info-block">
+        <h4>Adresse</h4>
+        <p>Miro Restaurant & Lounge<br>Alger, Algérie</p>
+      </div>
+      <div class="info-block">
+        <h4>Horaires</h4>
+        <p>Ouvert tous les jours, midi et soir.<br>De 12h00 à Minuit</p>
+      </div>
+      <div class="info-block">
+        <h4>Contact</h4>
+        <p>Réservation via Instagram<br>@miro.restaurant</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MEGA FOOTER -->
+<footer class="mega-footer">
+  <div class="footer-links-grid">
+    <div class="footer-col">
+      <h5>Découvrir</h5>
+      <a href="index.html">Accueil</a>
+      <a href="menu.html">La Carte</a>
+      <a href="#about">Le Lieu</a>
+      <a href="gallery.html">Galerie d'Art</a>
+    </div>
+    <div class="footer-col">
+      <h5>Légal</h5>
+      <a href="#">Politique de confidentialité</a>
+      <a href="#">Conditions d'utilisation</a>
+      <a href="#">Politique des cookies</a>
+    </div>
+    <div class="footer-col">
+      <h5>Actions</h5>
+      <a href="menu.html">Voir la Carte</a>
+      <a href="#">Carte Cadeau</a>
+      <a href="#visit">Réserver</a>
+    </div>
+    <div class="footer-col">
+      <h5>Réseaux Sociaux</h5>
+      <a href="https://www.instagram.com/miro.restaurant" target="_blank">Instagram</a>
+      <a href="https://www.tiktok.com/@mirorestaurant.alger" target="_blank">TikTok</a>
+    </div>
+  </div>
+  
+  <div class="footer-brand">
+    MIRO RESTAURANT
+  </div>
+  
+  <div class="footer-bottom">
+    <div>© <span id="year"></span> Miro Restaurant</div>
+    <div>Tous Droits Réservés</div>
+    <div>Menu propulsé par ScanEat</div>
+  </div>
+</footer>
+
+<script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+<script>
+  // Smooth scroll (Lenis) - Sans conflit CSS
+  const lenis = new Lenis({
+    duration: 1.0, 
+    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    smooth: true
+  });
+  function raf(time) {
+    lenis.raf(time);
+    requestAnimationFrame(raf);
+  }
+  requestAnimationFrame(raf);
+
+  document.getElementById('year').textContent = new Date().getFullYear();
+  
+  // scroll reveal
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+  }, { threshold: .15 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
