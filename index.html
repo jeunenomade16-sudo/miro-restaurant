@@ -3,581 +3,635 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Miro Restaurant & Lounge — Cuisine Méditerranéenne & Sushi · Alger</title>
-<meta name="description" content="Miro Restaurant & Lounge à Alger : cuisine française méditerranéenne aux influences italiennes, viandes maturées, poissons frais, paella et bar à sushi. Réservez votre table." />
+<title>Miro Restaurant & Lounge</title>
+<meta name="description" content="Miro Restaurant & Lounge à Alger : cuisine française méditerranéenne aux influences italiennes, viandes maturées, poissons frais, paella et bar à sushi." />
 <link rel="icon" href="logo.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
-
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css">
 <style>
-  :root{
-    --bg:#292520; /* Dark charcoal brown */
-    --bg-light:#e2d4c0; /* Beige */
-    --gold:#d6a86c; /* Sand/Gold */
-    --cream:#f8f2e9; 
-    --muted:#a3927f;
-    --line:rgba(214,168,108,.2);
-    --serif:'Cormorant Garamond',serif;
-    --sans:'Jost',sans-serif;
+  :root {
+    --bg: #292520;
+    --bg-light: #e2d4c0;
+    --gold: #d6a86c;
+    --cream: #f8f2e9; 
+    --muted: #a3927f;
+    --line: rgba(214,168,108,.2);
+    --line-dark: rgba(41,37,32,.15);
+    --serif: 'Cormorant Garamond', serif;
+    --sans: 'Jost', sans-serif;
   }
-  *{margin:0;padding:0;box-sizing:border-box}
-  html{}
-  body{
-    background:var(--bg);
-    color:var(--cream);
-    font-family:var(--sans);
-    font-weight:400;
-    line-height:1.7;
-    overflow-x:hidden;
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    background: var(--bg); color: var(--cream);
+    font-family: var(--sans); font-weight: 400; line-height: 1.6;
+    overflow-x: hidden;
   }
-  img{display:block;max-width:100%}
-  a{color:inherit;text-decoration:none}
-  ::selection{background:var(--gold);color:var(--bg)}
-
-  .wrap{max-width:1200px;margin:0 auto;padding:0 28px}
+  img { display: block; max-width: 100%; }
+  a { color: inherit; text-decoration: none; }
+  ::selection { background: var(--gold); color: var(--bg); }
   
-  .eyebrow{
-    font-size:.75rem;letter-spacing:.25em;text-transform:uppercase;
-    color:var(--gold);font-weight:500;margin-bottom:20px;
-  }
+  h1, h2, h3, h4 { font-family: var(--serif); font-weight: 400; text-transform: uppercase; line-height: 1.1; }
+  .h1 { font-size: clamp(4rem, 10vw, 8rem); letter-spacing: 2px; }
+  .h2 { font-size: clamp(3rem, 7vw, 5rem); }
+  .h3 { font-size: clamp(2.2rem, 5vw, 3.5rem); }
   
-  /* Utility layout classes */
-  .split-section {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0;
-  }
+  .base_p { font-size: 1.1rem; color: var(--muted); }
+  .base_p.dark { color: var(--bg); }
+  .base_p.light { color: var(--cream); }
   
-  .section-pad {
-    padding: 120px 0;
-  }
+  .eyebrow { font-size: 0.75rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); font-weight: 500; margin-bottom: 20px; display: block;}
+  .eyebrow.dark { color: var(--bg); opacity: 0.8; }
   
-  .bg-light {
-    background-color: var(--bg-light);
-    color: var(--bg);
+  .btn {
+    display: inline-block; font-family: var(--sans); font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 16px 32px; border: 1px solid var(--gold); color: var(--gold); transition: 0.4s ease; cursor: pointer; background: transparent;
   }
-  .bg-light .eyebrow { color: var(--bg); opacity: 0.7; }
-  .bg-light .title { color: var(--bg); }
-  .bg-light p { color: var(--bg); opacity: 0.8; }
+  .btn:hover { background: var(--gold); color: var(--bg); }
+  .btn.solid { background: var(--gold); color: var(--bg); }
+  .btn.solid:hover { background: var(--cream); border-color: var(--cream); }
+  .btn.dark { border-color: var(--bg); color: var(--bg); }
+  .btn.dark:hover { background: var(--bg); color: var(--bg-light); }
   
-  /* Typography */
-  h2.title{
-    font-family:var(--serif);font-weight:400;text-transform:uppercase;
-    font-size:clamp(3rem,6vw,5rem);line-height:1.05;letter-spacing:1px;
-    color: var(--cream);
-  }
-  h2.title.gold { color: var(--gold); }
+  .word { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: 0.1em; margin-bottom: -0.1em; }
+  .word-inner { display: inline-block; transform: translateY(110%); will-change: transform; }
   
-  .reveal{opacity:0;transform:translateY(30px);transition:all 1s cubic-bezier(.2,.7,.2,1)}
-  .reveal.in{opacity:1;transform:none}
-
-  /* NAV */
-  header.nav{
-    position:absolute;top:0;left:0;width:100%;z-index:50;
-    display:flex;align-items:center;justify-content:space-between;
-    padding:24px 40px;
+  /* HEADER & MOBILE MENU */
+  .header {
+    position: fixed; top: 0; left: 0; width: 100%; z-index: 105;
+    padding: 24px 40px; display: flex; justify-content: space-between; align-items: center;
+    transition: background 0.4s ease, padding 0.4s ease;
   }
-  .nav .brand img{height:36px;filter:invert(1) brightness(1.6) sepia(1) hue-rotate(340deg) saturate(3) opacity(0.8);}
+  .header.scrolled { background: rgba(41,37,32,0.95); backdrop-filter: blur(10px); padding: 15px 40px; border-bottom: 1px solid var(--line); }
+  .header.is-light { color: var(--bg); }
   
-  .nav-links{display:flex;gap:30px;align-items:center}
-  .nav-links a{font-size:.85rem;letter-spacing:.05em;color:var(--cream);transition:.3s;}
-  .nav-links a:hover{color:var(--gold)}
+  .nav-links { display: flex; gap: 30px; align-items: center; }
+  .nav-links a { font-size: 0.85rem; letter-spacing: 0.05em; transition: 0.3s; }
+  .nav-links a:hover { color: var(--gold); }
+  .header.is-light .nav-links a:hover { color: rgba(0,0,0,0.5); }
   
-  .btn{
-    display:inline-block;font-family:var(--sans);font-size:.8rem;letter-spacing:.1em;
-    padding:12px 24px;border:1px solid var(--gold);
-    color:var(--gold);transition:.35s;cursor:pointer;background:transparent;
-  }
-  .btn:hover{background:var(--gold);color:var(--bg)}
-  .btn.solid{background:var(--gold);color:var(--bg)}
-  .btn.solid:hover{background:var(--cream);border-color:var(--cream);color:var(--bg)}
+  .brand img { height: 36px; filter: invert(1) brightness(1.6) sepia(1) hue-rotate(340deg) saturate(3) opacity(0.8); transition: filter 0.3s; z-index: 110; position: relative;}
+  .header.is-light .brand img { filter: invert(0); }
   
-  .burger{display:none;flex-direction:column;gap:6px;cursor:pointer}
-  .burger span{width:28px;height:1px;background:var(--cream)}
-
-  /* HERO */
-  .hero{
-    position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;
-    text-align:center;padding-top:80px;
-  }
-  .hero-bg {
-    position:absolute;inset:0;
-    width: 100%; height: 100%; object-fit: cover;
-    filter: brightness(0.5); z-index:0;
-  }
-  .hero-inner{position:relative;z-index:2;max-width:900px;padding: 0 20px;}
-  .hero h1{
-    font-family:var(--serif);font-weight:400;text-transform:uppercase;
-    font-size:clamp(4rem,9vw,7rem);line-height:1;letter-spacing:2px;
-    color:var(--cream);
-  }
-  .hero .sub{font-size:1.1rem;color:var(--gold);letter-spacing:.2em;text-transform:uppercase;margin-bottom:30px;margin-top:20px}
-  
-  .review-badge { display: inline-flex; align-items: center; gap: 15px; margin-top: 40px; justify-content: center; background: rgba(0,0,0,0.5); padding: 12px 24px; border-radius: 40px; border: 1px solid var(--line); backdrop-filter: blur(8px); }
-  .stars { color: var(--gold); font-size: 1.1rem; letter-spacing: 3px; }
-  .review-text { color: var(--cream); font-size: 0.95rem; }
-  .review-text strong { color: #fff; font-weight: 500; }
-  
-  /* TESTIMONIAL MARQUEE */
-  .testimonial-marquee { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 50px 0; overflow: hidden; background: var(--bg); display: flex; }
-  .marquee-track { display: flex; gap: 40px; animation: scroll-test 40s linear infinite; width: max-content; padding-left: 40px; }
-  .test-card { width: 380px; flex-shrink: 0; background: rgba(255,255,255,0.02); padding: 35px; border-radius: 8px; border: 1px solid var(--line); }
-  .test-card .stars { color: var(--gold); font-size: 1rem; margin-bottom: 15px; }
-  .test-card p { font-size: 1.05rem; color: var(--cream); font-style: italic; margin-bottom: 25px; line-height: 1.6; }
-  .test-card .author { font-size: 0.85rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); }
-  @keyframes scroll-test { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-
-  /* ABOUT (Image on right, text on left style) */
-  .split-about {
-    align-items: center;
-  }
-  .split-about-text {
-    padding: 60px 80px;
-  }
-  .split-about-img {
-    height: 100%;
-    min-height: 600px;
-    background: url('https://scaneatio.s3.eu-central-1.amazonaws.com/items/7qnaMtWpa97OECAyvb3tMTWWndRUcb1777828634.JPG') center/cover;
-  }
-
-  /* FLAVORS THAT STAY (Centered big text with background image) */
-  .flavors {
-    position: relative;
-    padding: 180px 20px;
-    text-align: center;
-    background: url('https://scaneatio.s3.eu-central-1.amazonaws.com/items/sIGtYP0o6pI8jyXmugY5TVaqKDKX6y1778077870.jpg') center/cover fixed;
-  }
-  .flavors::before {
-    content: ''; position: absolute; inset: 0; background: rgba(41,37,32,0.7);
-  }
-  .flavors .wrap { position: relative; z-index: 1; }
-  .flavors h2.title { color: var(--cream); font-size: clamp(3rem,8vw,6.5rem); }
-
-  /* MENU HIGHLIGHTS & SPLIT */
-  .dish-grid{display:flex;flex-direction:column;gap:0;}
-  .dish{display:flex;justify-content:space-between;align-items:baseline;padding:20px 0;border-bottom:1px solid var(--line)}
-  .dish .d-name{font-size:1.15rem;font-weight:400;color:var(--cream);}
-  .dish .d-name small{display:block;color:var(--muted);font-size:.9rem;font-weight:300;margin-top:6px}
-  .dish .d-price{font-family:var(--sans);font-size:1.15rem;color:var(--gold);white-space:nowrap;margin-left:20px;}
-
-  /* DRINKS SECTION */
-  .drinks-text { padding: 100px 80px; }
-  .drinks-grid .d-name { color: var(--bg); font-weight: 500; }
-  .drinks-grid .d-price { color: var(--bg); font-weight: 600; }
-  .drinks-grid .dish { border-bottom-color: rgba(41,37,32,0.15); }
-  .drinks-images { position: relative; background: var(--bg); min-height: 600px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
-  .d-img { position: absolute; width: 45%; height: 60%; background-size: cover; background-position: center; border-radius: 4px; box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
-  .d-img-1 { top: 10%; left: 10%; z-index: 2; }
-  .d-img-2 { bottom: 10%; right: 10%; z-index: 1; }
-
-  /* GIFT CARD */
-  .gift-card-section { position: relative; }
-
-  /* GALLERY CAROUSEL */
-  .food-track { display: flex; gap: 20px; overflow-x: auto; padding-bottom: 20px; scrollbar-width: none; }
-  .food-track::-webkit-scrollbar { display: none; }
-  .food-card { flex: 0 0 320px; position: relative; height: 400px; }
-  .food-card img { width: 100%; height: 100%; object-fit: cover; }
-  .food-name { position: absolute; bottom: 0; left: 0; width: 100%; padding: 30px 20px 20px; background: linear-gradient(transparent, rgba(41,37,32,0.9)); font-family: var(--serif); font-size: 1.4rem; color: var(--cream); }
-  .food-name small { display: block; font-family: var(--sans); font-size: .75rem; letter-spacing: .15em; color: var(--gold); text-transform: uppercase; margin-top: 5px; }
-
-  /* VISIT / LIGHT BG SECTION */
-  .visit-section {
-    padding: 120px 0;
-    text-align: center;
-  }
-  .info-blocks {
-    display: flex;
-    justify-content: center;
-    gap: 60px;
-    margin-top: 60px;
-    flex-wrap: wrap;
-  }
-  .info-block {
-    text-align: left;
-    max-width: 300px;
-  }
-  .info-block h4 {
-    font-family: var(--serif);
-    font-size: 1.5rem;
-    color: var(--bg);
-    margin-bottom: 12px;
-  }
-  
-  /* MEGA FOOTER */
-  .mega-footer {
-    background: var(--bg);
-    padding: 80px 40px 40px;
-    border-top: 1px solid var(--line);
-    display: flex;
-    flex-direction: column;
-    gap: 60px;
-  }
-  .footer-links-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 40px;
-    max-width: 1200px;
-    margin: 0 auto;
-    width: 100%;
-  }
-  .footer-col h5 {
-    color: var(--cream);
-    font-family: var(--sans);
-    font-weight: 500;
-    margin-bottom: 20px;
-    font-size: 1rem;
-  }
-  .footer-col a {
-    display: block;
-    color: var(--muted);
-    margin-bottom: 12px;
-    font-size: .9rem;
-    transition: .3s;
-  }
-  .footer-col a:hover {
-    color: var(--gold);
-  }
-  .footer-brand {
-    font-family: var(--sans);
-    font-size: clamp(4rem, 12vw, 12rem);
-    font-weight: 400;
-    color: var(--gold);
-    text-align: center;
-    line-height: 0.8;
-    letter-spacing: -2px;
-  }
-  .footer-bottom {
-    display: flex;
-    justify-content: space-between;
-    color: var(--muted);
-    font-size: .8rem;
-    max-width: 1200px;
-    margin: 0 auto;
-    width: 100%;
-    border-top: 1px solid var(--line);
-    padding-top: 20px;
-  }
-
-  .mobile-nav {
-    position: fixed; inset: 0; background: var(--bg); z-index: 45;
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    gap: 24px; transform: translateX(100%); transition: transform 0.4s ease;
-  }
-  .mobile-nav.open { transform: translateX(0); }
-  .mobile-nav a { font-size: 1.5rem; letter-spacing: 0.1em; color: var(--cream); text-transform: uppercase; font-family: var(--serif); }
-  .mobile-nav a:hover { color: var(--gold); }
-  .mobile-nav .btn { font-size: 1rem; margin-top: 10px; font-family: var(--sans); }
-  
-  .burger { z-index: 50; }
-  .burger span { transition: 0.3s; }
+  .burger { display: none; flex-direction: column; gap: 6px; cursor: pointer; z-index: 110; position: relative; }
+  .burger span { width: 28px; height: 1px; background: var(--cream); transition: 0.3s; }
+  .header.is-light .burger span { background: var(--bg); }
+  .burger.active span { background: var(--cream) !important; }
   .burger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
   .burger.active span:nth-child(2) { opacity: 0; }
   .burger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-  @media(max-width:880px){
-    .nav-links{display:none;}
-    .burger{display:flex}
-    .split-section{grid-template-columns:1fr;}
-    .split-about-img{min-height:400px;}
-    .drinks-images{min-height:400px;}
-    .d-img-1 { top: 15%; left: 5%; width: 50%; height: 70%; }
-    .d-img-2 { bottom: 15%; right: 5%; width: 50%; height: 70%; }
-    .footer-links-grid{grid-template-columns:1fr 1fr;}
-    .split-about-text, .drinks-text { padding: 60px 30px; }
-    .dish { flex-direction: column; align-items: flex-start; gap: 10px; }
-    .dish .d-price { margin-left: 0; }
+  .mobile-nav {
+    position: fixed; inset: 0; background: rgba(41,37,32,0.98); z-index: 100;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    backdrop-filter: blur(10px); transform: translateY(-100%); visibility: hidden;
   }
-  @media(max-width:600px){
-    .footer-links-grid{grid-template-columns:1fr;}
-    .info-blocks{flex-direction:column; align-items:center; text-align:center;}
-    .info-block{text-align:center;}
-    .hero h1{font-size:clamp(3rem, 12vw, 4rem);}
-    .gift-card-section .wrap { padding: 80px 20px; }
+  .mobile-nav-links { display: flex; flex-direction: column; gap: 30px; text-align: center; }
+  .mobile-nav a { font-family: var(--serif); font-size: 2.5rem; color: var(--cream); text-transform: uppercase; }
+  .mobile-nav .btn { font-family: var(--sans); font-size: 1rem; margin-top: 20px; border-color: var(--gold); color: var(--gold); }
+  
+  /* HERO */
+  .hero {
+    position: relative; min-height: max(100vh, 700px); width: 100%; display: flex; flex-direction: column; justify-content: flex-end;
+    overflow: hidden; padding: 120px 40px 40px 40px;
+  }
+  .hero-bg {
+    position: absolute; top: -25%; left: -5%; width: 110%; height: 150%; object-fit: cover;
+    filter: brightness(0.5); z-index: 0; will-change: transform;
+  }
+  .hero-center-content {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    text-align: center; width: 100%; z-index: 2; pointer-events: none;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+  }
+  .hero-logo { height: clamp(60px, 12vw, 120px); margin-bottom: 20px; filter: invert(1) brightness(1.6) sepia(1) hue-rotate(340deg) saturate(3) opacity(0.9); will-change: transform, opacity; }
+  .h1 { font-size: clamp(3rem, 6vw, 6.5rem); line-height: 1.1; letter-spacing: 0; margin: 0; text-transform: uppercase; }
+  
+  .hero-side-text {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    font-family: var(--sans); font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--cream); font-weight: 500; opacity: 0.8; line-height: 1.4;
+    max-width: 140px; z-index: 3; pointer-events: auto;
+  }
+  .hero-side-text.left { left: 40px; text-align: left; }
+  .hero-side-text.right { right: 40px; text-align: right; }
+  
+  .hero-bottom-grid {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    width: 100%; position: relative; z-index: 2; padding-top: 40px;
+  }
+  .hero-desc {
+    max-width: 400px; font-size: 0.95rem; color: rgba(255,255,255,0.8);
+    text-align: left; line-height: 1.6;
+  }
+  
+  .review-box {
+    background: #e2d4c0; color: #292520; padding: 24px; width: 320px; text-align: left;
+    opacity: 0; transform: translateY(20px);
+  }
+  .review-box-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+  .review-box .stars { color: #d6a86c; font-size: 1.2rem; letter-spacing: 4px; }
+  .review-box-body { display: flex; align-items: center; gap: 20px; }
+  .review-box .score { font-family: var(--serif); font-size: 3.5rem; line-height: 1; }
+  .review-box .score-max { font-size: 1.5rem; font-family: var(--sans); }
+  .review-box .score-text { font-size: 0.8rem; line-height: 1.4; }
+  .review-box .score-text strong { font-size: 1rem; font-weight: 600; display: block; margin-bottom: 2px;}
+  
+  /* SPLIT LAYOUT */
+  .split-section { display: grid; grid-template-columns: 1fr 1fr; min-height: 100vh; }
+  .split-text { padding: 10vw 8vw; display: flex; flex-direction: column; justify-content: center; }
+  .split-img-wrapper { position: relative; overflow: hidden; }
+  .split-img { position: absolute; inset: -5%; width: 110%; height: 110%; object-fit: cover; will-change: transform; }
+  
+  /* MENU GRID */
+  .dish-list { margin-top: 50px; display: flex; flex-direction: column; }
+  .dish-item { display: flex; justify-content: space-between; align-items: flex-start; padding: 24px 0; border-bottom: 1px solid var(--line); }
+  .dish-item.dark { border-bottom-color: var(--line-dark); }
+  .d-name { font-size: 1.25rem; color: var(--cream); font-family: var(--serif); }
+  .dish-item.dark .d-name { color: var(--bg); }
+  .d-desc { font-size: 0.9rem; color: var(--muted); margin-top: 8px; max-width: 80%; }
+  .dish-item.dark .d-desc { color: rgba(41,37,32,0.7); }
+  .d-price { font-size: 1.15rem; color: var(--gold); }
+  .dish-item.dark .d-price { color: var(--bg); font-weight: 500; }
+  
+  /* CATERING SLIDER */
+  .catering { padding: 120px 0; background: var(--bg); border-top: 1px solid var(--line); overflow: hidden; }
+  .catering-header { text-align: center; margin-bottom: 80px; padding: 0 20px; }
+  .splide__slide img { width: 100%; height: 500px; object-fit: cover; filter: brightness(0.8); transition: 0.5s; cursor: grab; }
+  .splide__slide.is-active img { filter: brightness(1); }
+  .slide-text { text-align: center; margin-top: 24px; opacity: 0; transition: 0.5s; transform: translateY(10px); }
+  .splide__slide.is-active .slide-text { opacity: 1; transform: translateY(0); }
+  .slide-title { font-family: var(--serif); font-size: 1.8rem; color: var(--gold); margin-bottom: 8px; }
+  
+  /* DRINKS SECTION */
+  .bg-light { background: var(--bg-light); color: var(--bg); }
+  .drinks-images { position: relative; background: var(--bg); display: flex; align-items: center; justify-content: center; overflow: hidden; min-height: 100vh;}
+  .d-img { position: absolute; width: 45%; height: 60%; object-fit: cover; box-shadow: 0 30px 60px rgba(0,0,0,0.5); will-change: transform; }
+  .d-img-1 { top: 15%; left: 10%; z-index: 2; }
+  .d-img-2 { bottom: 15%; right: 10%; z-index: 1; }
+  
+  /* GIFT CARD & FULLSIZE */
+  .gift-card { padding: 150px 20px; text-align: center; border-bottom: 1px solid var(--line); }
+  .fullsize { position: relative; height: 100vh; display: flex; align-items: center; padding: 0 8vw; overflow: hidden; }
+  .fullsize-img { position: absolute; inset: -5%; width: 110%; height: 110%; object-fit: cover; z-index: 0; filter: brightness(0.4); will-change: transform; }
+  .fullsize-content { position: relative; z-index: 2; max-width: 600px; }
+  
+  /* MARQUEE */
+  .marquee-section { padding: 120px 0; background: var(--bg); border-top: 1px solid var(--line); overflow: hidden; }
+  .marquee-header { text-align: center; margin-bottom: 60px; padding: 0 20px; }
+  .marquee-track { display: flex; gap: 40px; width: max-content; padding-left: 40px; }
+  .test-card { width: 400px; flex-shrink: 0; background: rgba(255,255,255,0.02); padding: 40px; border: 1px solid var(--line); }
+  .test-card p { font-size: 1.1rem; color: var(--cream); font-style: italic; margin: 20px 0; line-height: 1.6; }
+  
+  /* FOOTER */
+  .footer { padding: 100px 40px 40px; border-top: 1px solid var(--line); }
+  .footer-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; max-width: 1400px; margin: 0 auto; }
+  .footer h5 { font-family: var(--sans); color: var(--cream); margin-bottom: 24px; font-size: 1rem; }
+  .footer a { display: block; color: var(--muted); margin-bottom: 12px; font-size: 0.9rem; transition: 0.3s; }
+  .footer a:hover { color: var(--gold); }
+  .footer-brand { font-family: var(--sans); font-size: clamp(4rem, 12vw, 15rem); color: var(--gold); text-align: center; line-height: 0.8; margin-top: 80px; letter-spacing: -2px; }
+  
+  /* RESPONSIVE */
+  @media(max-width: 900px) {
+    .burger { display: flex; }
+    .nav-links.desktop { display: none; }
+    .split-section { grid-template-columns: 1fr; min-height: auto; }
+    .split-text { padding: 80px 20px; }
+    .split-img-wrapper { height: 50vh; }
+    .drinks-images { height: auto; min-height: auto; padding: 40px 20px; display: flex; flex-direction: column; gap: 20px; }
+    .d-img { position: relative; width: 100%; height: 350px; inset: auto !important; box-shadow: none; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .h1 { font-size: clamp(3rem, 15vw, 5rem); }
+    .h2 { font-size: clamp(2.5rem, 10vw, 3.5rem); }
+    .hero { padding: 100px 20px 20px 20px; justify-content: flex-end; }
+    .hero-side-text { display: none; }
+    .hero-center-content { position: relative; top: auto; left: auto; transform: none; margin-bottom: 40px; }
+    .hero-bottom-grid { flex-direction: column; align-items: flex-start; gap: 30px; margin-top: 0; }
+    .hero-desc { max-width: 100%; font-size: 0.9rem; }
+    .review-box { width: 100%; }
+    .fullsize { height: 60vh; padding: 0 20px; text-align: center; justify-content: center; }
+  }
+  @media(max-width: 600px) {
+    .footer-grid { grid-template-columns: 1fr; }
+    .test-card { width: 300px; padding: 30px; }
+    .dish-item { flex-direction: column; gap: 10px; }
+    .d-price { align-self: flex-start; }
+    .gift-card { padding: 100px 20px; }
   }
 </style>
 </head>
 <body>
 
-<!-- NAV -->
-<header class="nav" id="nav">
-  <div class="nav-links">
+<header class="header" id="header">
+  <div class="nav-links desktop">
     <a href="index.html">Accueil</a>
     <a href="menu.html">La Carte</a>
     <a href="#about">Le Lieu</a>
-    <a href="gallery.html">Galerie d'Art</a>
   </div>
   <a href="index.html" class="brand">
     <img src="logo.png" alt="Miro Restaurant" />
   </a>
-  <div class="nav-links">
+  <div class="nav-links desktop">
+    <a href="gallery.html">Galerie d'Art</a>
     <a href="https://www.instagram.com/miro.restaurant" target="_blank">Instagram</a>
-    <a href="#visit">Contact</a>
-    <a href="#visit" class="btn solid">Réserver</a>
+    <a href="#visit" class="btn">Réserver</a>
   </div>
   <div class="burger" id="burger"><span></span><span></span><span></span></div>
 </header>
 
 <div class="mobile-nav" id="mobile-nav">
-  <a href="index.html">Accueil</a>
-  <a href="menu.html">La Carte</a>
-  <a href="#about">Le Lieu</a>
-  <a href="gallery.html">Galerie d'Art</a>
-  <a href="https://www.instagram.com/miro.restaurant" target="_blank">Instagram</a>
-  <a href="#visit">Contact</a>
-  <a href="#visit" class="btn solid">Réserver</a>
+  <div class="mobile-nav-links">
+    <a href="index.html" class="m-link">Accueil</a>
+    <a href="menu.html" class="m-link">La Carte</a>
+    <a href="#about" class="m-link">Le Lieu</a>
+    <a href="gallery.html" class="m-link">Galerie d'Art</a>
+    <a href="#visit" class="btn solid m-link">Réserver</a>
+  </div>
 </div>
 
-<!-- HERO -->
-<section class="hero" id="top">
-  <video class="hero-bg" autoplay muted loop playsinline poster="gallery_interior.png">
+<section class="hero">
+  <video class="hero-bg" autoplay muted loop playsinline poster="gallery_interior.png" data-speed="0.8">
     <source src="hero.mp4" type="video/mp4" />
   </video>
-  <div class="hero-inner reveal">
-    <div class="sub">Gastronomie Méditerranéenne</div>
-    <h1>Miro<br>Restaurant</h1>
-    <p style="margin-top: 20px; color: var(--cream); font-size: 1.1rem; max-width: 600px; margin-left: auto; margin-right: auto;">Cuisine française aux accents méditerranéens et italiens, viandes maturées, poissons frais et bar à sushi raffiné.</p>
-    
-    <div class="review-badge reveal">
-      <div class="stars">★★★★★</div>
-      <div class="review-text"><strong>4.8</strong>/5 basé sur <strong>2 340</strong> avis</div>
-    </div>
-  </div>
-</section>
+  <div class="hero-side-text left">Gastronomie<br>Méditerranéenne</div>
+  <div class="hero-side-text right">Depuis<br>2023</div>
 
-<!-- TESTIMONIAL MARQUEE -->
-<div class="testimonial-marquee">
-  <div class="marquee-track">
-    <div class="test-card">
-      <div class="stars">★★★★★</div>
-      <p>"Toujours aussi délicieux. Le personnel est incroyable et attentionné. Mon restaurant préféré à Alger."</p>
-      <div class="author">Amine T.</div>
-    </div>
-    <div class="test-card">
-      <div class="stars">★★★★★</div>
-      <p>"Le restaurant est très propre, la nourriture est incroyable. Vous ne regretterez pas d'y avoir mangé."</p>
-      <div class="author">Sarah M.</div>
-    </div>
-    <div class="test-card">
-      <div class="stars">★★★★★</div>
-      <p>"J'ai mangé l'un des meilleurs plats autour... T-Bone, Sushi, tout était incroyable."</p>
-      <div class="author">Karim B.</div>
-    </div>
-    <div class="test-card">
-      <div class="stars">★★★★★</div>
-      <p>"Superbe décoration, ambiance très classe, plats copieux et délicieux !"</p>
-      <div class="author">Lydia C.</div>
-    </div>
-    <!-- Duplicate for infinite scroll -->
-    <div class="test-card">
-      <div class="stars">★★★★★</div>
-      <p>"Toujours aussi délicieux. Le personnel est incroyable et attentionné. Mon restaurant préféré à Alger."</p>
-      <div class="author">Amine T.</div>
-    </div>
-    <div class="test-card">
-      <div class="stars">★★★★★</div>
-      <p>"Le restaurant est très propre, la nourriture est incroyable. Vous ne regretterez pas d'y avoir mangé."</p>
-      <div class="author">Sarah M.</div>
-    </div>
-    <div class="test-card">
-      <div class="stars">★★★★★</div>
-      <p>"J'ai mangé l'un des meilleurs plats autour... T-Bone, Sushi, tout était incroyable."</p>
-      <div class="author">Karim B.</div>
-    </div>
-    <div class="test-card">
-      <div class="stars">★★★★★</div>
-      <p>"Superbe décoration, ambiance très classe, plats copieux et délicieux !"</p>
-      <div class="author">Lydia C.</div>
-    </div>
+  <div class="hero-center-content">
+    <img src="logo.png" alt="Miro Restaurant" class="hero-logo" />
+    <h1 class="h1 text-split">Saveurs</h1>
+    <h1 class="h1 text-split">Mémorables</h1>
   </div>
-</div>
 
-<!-- ABOUT SPLIT -->
-<section class="split-section split-about" id="about">
-  <div class="split-about-text reveal">
-    <div class="eyebrow">Ancré dans l'Expérience</div>
-    <h2 class="title">Une Cuisine<br>Généreuse</h2>
-    <p style="margin-top: 30px; font-size: 1.1rem; color: var(--muted);">Chez Miro, chaque assiette raconte une rencontre : la rigueur de la gastronomie française, la chaleur de la Méditerranée et l'élégance de la cuisine italienne. Des entrées délicates aux viandes grillées sur la braise, tout est pensé pour les amoureux du goût.</p>
-    <a href="menu.html" class="btn" style="margin-top: 40px;">Voir la Carte</a>
-  </div>
-  <div class="split-about-img reveal"></div>
-</section>
-
-<!-- FLAVORS THAT STAY -->
-<section class="flavors">
-  <div class="wrap reveal">
-    <h2 class="title">Des Saveurs<br>Mémorables</h2>
-    <p style="margin-top: 20px; font-size: 1.1rem; color: var(--cream);">D'une hospitalité chaleureuse à des saveurs audacieuses, chaque détail raconte une histoire.</p>
-  </div>
-</section>
-
-<!-- SIGNATURE PLATES SPLIT -->
-<section class="split-section split-about" id="signature">
-  <div class="split-about-text reveal">
-    <div class="eyebrow">Plats Signatures</div>
-    <h2 class="title gold">Racines<br>Classiques</h2>
-    <p style="margin-top: 20px; font-size: 1.1rem; color: var(--muted); margin-bottom: 40px;">Chaque plat reflète notre passion — des recettes peaufinées par l'expérience et pensées pour le palais d'aujourd'hui. Des entrées délicates aux viandes d'exception, nous honorons notre héritage tout en accueillant chaque invité avec chaleur.</p>
-    
-    <div class="dish-grid">
-      <div class="dish"><div class="d-text"><span class="d-name">Tapas de champignons</span><small>à la provençale</small></div><span class="d-price">2 100 DA</span></div>
-      <div class="dish"><div class="d-text"><span class="d-name">Burrata</span><small>crémeuse, huile d'olive</small></div><span class="d-price">2 400 DA</span></div>
-      <div class="dish"><div class="d-text"><span class="d-name">T-Bone Grillé sur Braise</span><small>viande maturée d'exception</small></div><span class="d-price">6 200 DA</span></div>
-      <div class="dish"><div class="d-text"><span class="d-name">Paella</span><small>pour 2 personnes, fruits de mer</small></div><span class="d-price">8 200 DA</span></div>
-      <div class="dish"><div class="d-text"><span class="d-name">Sashimi Saumon</span><small>pêche fraîche du jour</small></div><span class="d-price">3 800 DA</span></div>
+  <div class="hero-bottom-grid">
+    <div class="hero-desc">
+      Chez Miro, chaque assiette raconte une rencontre : la rigueur de la gastronomie française, la chaleur de la Méditerranée et l'élégance de la cuisine italienne. Des entrées délicates aux viandes grillées sur la braise, tout est pensé pour les amoureux du goût.
     </div>
     
-    <div style="margin-top: 40px;">
-      <a href="menu.html" class="btn solid">Voir le Menu Complet</a>
+    <div class="review-box">
+      <div class="review-box-header">
+        <div class="stars">★★★★★</div>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+      </div>
+      <div class="review-box-body">
+        <div class="score">4.8<span class="score-max">/5</span></div>
+        <div class="score-text">
+          <strong>Excellent</strong>
+          Basé sur 2 340 avis
+        </div>
+      </div>
     </div>
   </div>
-  <div class="split-about-img reveal" style="background-image: url('https://scaneatio.s3.eu-central-1.amazonaws.com/items/sIGtYP0o6pI8jyXmugY5TVaqKDKX6y1778077870.jpg');"></div>
 </section>
 
-<!-- DRINKS SECTION -->
-<section class="split-section" id="drinks">
+<section class="split-section" id="about">
+  <div class="split-text">
+    <span class="eyebrow text-split">L'Esprit Miro</span>
+    <h2 class="h2 text-split">Une Cuisine<br>Généreuse</h2>
+    <p class="base_p text-split" style="margin-top:30px;">Chez Miro, chaque assiette raconte une rencontre : la rigueur de la gastronomie française, la chaleur de la Méditerranée et l'élégance de la cuisine italienne. Des entrées délicates aux viandes grillées sur la braise, tout est pensé pour les amoureux du goût.</p>
+    <div style="margin-top:40px;" class="fade-up">
+      <a href="menu.html" class="btn">Découvrir l'Histoire</a>
+    </div>
+  </div>
+  <div class="split-img-wrapper">
+    <img src="https://scaneatio.s3.eu-central-1.amazonaws.com/items/7qnaMtWpa97OECAyvb3tMTWWndRUcb1777828634.JPG" alt="Miro ambiance" class="split-img" data-speed="0.9" />
+  </div>
+</section>
+
+<section class="split-section">
+  <div class="split-img-wrapper">
+    <img src="https://scaneatio.s3.eu-central-1.amazonaws.com/items/sIGtYP0o6pI8jyXmugY5TVaqKDKX6y1778077870.jpg" alt="Featured Menu" class="split-img" data-speed="0.9" />
+  </div>
+  <div class="split-text">
+    <span class="eyebrow text-split">Plats Signatures</span>
+    <h3 class="h3 text-split">Racines<br>Classiques</h3>
+    <p class="base_p text-split" style="margin-top:20px;">Chaque plat reflète notre passion — des recettes peaufinées par l'expérience et pensées pour le palais d'aujourd'hui.</p>
+    
+    <div class="dish-list fade-up">
+      <div class="dish-item">
+        <div><div class="d-name">Tapas de champignons</div><div class="d-desc">à la provençale</div></div>
+        <div class="d-price">2 100 DA</div>
+      </div>
+      <div class="dish-item">
+        <div><div class="d-name">Burrata</div><div class="d-desc">crémeuse, huile d'olive</div></div>
+        <div class="d-price">2 400 DA</div>
+      </div>
+      <div class="dish-item">
+        <div><div class="d-name">T-Bone Grillé sur Braise</div><div class="d-desc">viande maturée d'exception</div></div>
+        <div class="d-price">6 200 DA</div>
+      </div>
+      <div class="dish-item">
+        <div><div class="d-name">Paella</div><div class="d-desc">pour 2 personnes, fruits de mer</div></div>
+        <div class="d-price">8 200 DA</div>
+      </div>
+      <div class="dish-item">
+        <div><div class="d-name">Sashimi Saumon</div><div class="d-desc">pêche fraîche du jour</div></div>
+        <div class="d-price">3 800 DA</div>
+      </div>
+    </div>
+    
+    <div style="margin-top:50px;" class="fade-up">
+      <a href="menu.html" class="btn solid">Voir la Carte</a>
+    </div>
+  </div>
+</section>
+
+<section class="catering">
+  <div class="catering-header">
+    <span class="eyebrow text-split">L'Expérience</span>
+    <h2 class="h2 text-split">Notre Galerie</h2>
+    <p class="base_p text-split" style="margin:20px auto 0; max-width:600px;">Découvrez nos créations culinaires et l'atmosphère unique de notre restaurant.</p>
+  </div>
+  
+  <div class="splide" id="gallery-slider">
+    <div class="splide__track">
+      <ul class="splide__list">
+        <li class="splide__slide">
+          <img src="https://scaneatio.s3.eu-central-1.amazonaws.com/items/azhgT4IQePRWMcJwbIMqcYHcCzBIHb1777905380.jpeg" alt="Dragon Maki">
+          <div class="slide-text"><div class="slide-title">Sushi & Maki</div><div class="base_p">Fraîcheur et précision</div></div>
+        </li>
+        <li class="splide__slide">
+          <img src="https://scaneatio.s3.eu-central-1.amazonaws.com/items/CxskxIwmTsuhKdzZUUUYB9ZbJuuwfH1777837956.JPG" alt="Loup de mer">
+          <div class="slide-text"><div class="slide-title">Poissons Frais</div><div class="base_p">Pêche du jour</div></div>
+        </li>
+        <li class="splide__slide">
+          <img src="https://scaneatio.s3.eu-central-1.amazonaws.com/items/iAFcy0fzzevnttk8D7dMZhn9asHUCd1777828266.JPG" alt="Dessert">
+          <div class="slide-text"><div class="slide-title">Douceurs</div><div class="base_p">Gourmandise ultime</div></div>
+        </li>
+        <li class="splide__slide">
+          <img src="https://scaneatio.s3.eu-central-1.amazonaws.com/items/cY9EIcVFOpvWKrJsnDmtqKcTQPyr8I1777837536.JPG" alt="Salade">
+          <div class="slide-text"><div class="slide-title">Entrées Délicates</div><div class="base_p">Saveurs méditerranéennes</div></div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="split-section bg-light" id="drinks-section">
+  <div class="split-text">
+    <span class="eyebrow dark text-split">Le Bar</span>
+    <h3 class="h3 text-split" style="color:var(--bg);">Boissons &<br>Cocktails</h3>
+    <p class="base_p dark text-split" style="margin-top:20px;">Des mocktails créations maison aux classiques revisités, chaque boisson est pensée pour s'accorder parfaitement avec votre repas.</p>
+    
+    <div class="dish-list fade-up">
+      <div class="dish-item dark">
+        <div><div class="d-name">Mojito Signature</div><div class="d-desc">Menthe fraîche, citron vert, touche secrète</div></div>
+        <div class="d-price">800 DA</div>
+      </div>
+      <div class="dish-item dark">
+        <div><div class="d-name">Virgin Piña Colada</div><div class="d-desc">Ananas, crème de coco</div></div>
+        <div class="d-price">900 DA</div>
+      </div>
+      <div class="dish-item dark">
+        <div><div class="d-name">Passion Fruit Fizz</div><div class="d-desc">Fruit de la passion, eau gazeuse, gingembre</div></div>
+        <div class="d-price">850 DA</div>
+      </div>
+      <div class="dish-item dark">
+        <div><div class="d-name">Thé Glacé Maison</div><div class="d-desc">Pêche infusée, romarin</div></div>
+        <div class="d-price">600 DA</div>
+      </div>
+    </div>
+    
+    <div style="margin-top:50px;" class="fade-up">
+      <a href="menu.html#boissons" class="btn dark">Carte des Boissons</a>
+    </div>
+  </div>
   <div class="drinks-images">
-    <div class="d-img d-img-1 reveal" style="background-image: url('https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&q=80');"></div>
-    <div class="d-img d-img-2 reveal" style="background-image: url('https://images.unsplash.com/photo-1536935338788-846bb9981813?auto=format&fit=crop&q=80');"></div>
+    <img src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&q=80" alt="Cocktail 1" class="d-img d-img-1" data-speed="0.8" />
+    <img src="https://images.unsplash.com/photo-1536935338788-846bb9981813?auto=format&fit=crop&q=80" alt="Cocktail 2" class="d-img d-img-2" data-speed="1.1" />
   </div>
-  <div class="drinks-text bg-light reveal">
-    <div class="eyebrow">Le Bar</div>
-    <h2 class="title">Boissons &<br>Cocktails</h2>
-    <p style="margin-top: 20px; font-size: 1.1rem; margin-bottom: 40px;">Des mocktails créations maison aux classiques revisités, chaque boisson est pensée pour s'accorder parfaitement avec votre repas.</p>
-    
-    <div class="dish-grid drinks-grid">
-      <div class="dish"><div class="d-text"><span class="d-name">Mojito Signature</span><small>Menthe fraîche, citron vert, touche secrète</small></div><span class="d-price">800 DA</span></div>
-      <div class="dish"><div class="d-text"><span class="d-name">Virgin Piña Colada</span><small>Ananas, crème de coco</small></div><span class="d-price">900 DA</span></div>
-      <div class="dish"><div class="d-text"><span class="d-name">Passion Fruit Fizz</span><small>Fruit de la passion, eau gazeuse, gingembre</small></div><span class="d-price">850 DA</span></div>
-      <div class="dish"><div class="d-text"><span class="d-name">Thé Glacé Maison</span><small>Pêche infusée, romarin</small></div><span class="d-price">600 DA</span></div>
+</section>
+
+<section class="gift-card" id="visit">
+  <span class="eyebrow text-split">Partager l'Expérience</span>
+  <h2 class="h2 text-split" style="color:var(--gold);">Offrez le Goût<br>de la Tradition</h2>
+  <p class="base_p text-split" style="margin:20px auto 40px; max-width:500px;">Pour un anniversaire, une célébration ou un simple merci, une carte cadeau Miro rassemble autour de saveurs inoubliables.</p>
+  <div class="fade-up">
+    <a href="#" class="btn solid">Commander une Carte</a>
+  </div>
+</section>
+
+<section class="fullsize">
+  <img src="gallery_interior.png" alt="Miro Interior" class="fullsize-img" data-speed="0.8" />
+  <div class="fullsize-content">
+    <h2 class="h2 text-split" style="color:var(--cream);">Ancré dans<br>l'Expérience</h2>
+    <p class="base_p light text-split" style="margin-top:20px;">D'une hospitalité chaleureuse à des saveurs audacieuses, chaque détail raconte une histoire de passion et d'excellence.</p>
+  </div>
+</section>
+
+<section class="marquee-section">
+  <div class="marquee-header">
+    <h2 class="h2 text-split">Ce Que Disent<br>Nos Invités</h2>
+  </div>
+  <div class="marquee-track" id="marquee">
+    <div class="test-card">
+      <div class="stars">★★★★★</div>
+      <p>"Toujours aussi délicieux. Le personnel est incroyable et attentionné. Mon restaurant préféré à Alger."</p>
+      <div class="eyebrow">Amine T.</div>
     </div>
-    
-    <div style="margin-top: 40px;">
-      <a href="menu.html#boissons" class="btn">Carte des Boissons</a>
+    <div class="test-card">
+      <div class="stars">★★★★★</div>
+      <p>"Le restaurant est très propre, la nourriture est incroyable. Vous ne regretterez pas d'y avoir mangé."</p>
+      <div class="eyebrow">Sarah M.</div>
+    </div>
+    <div class="test-card">
+      <div class="stars">★★★★★</div>
+      <p>"J'ai mangé l'un des meilleurs plats autour... T-Bone, Sushi, tout était incroyable."</p>
+      <div class="eyebrow">Karim B.</div>
+    </div>
+    <div class="test-card">
+      <div class="stars">★★★★★</div>
+      <p>"Superbe décoration, ambiance très classe, plats copieux et délicieux !"</p>
+      <div class="eyebrow">Lydia C.</div>
+    </div>
+    <div class="test-card">
+      <div class="stars">★★★★★</div>
+      <p>"Toujours aussi délicieux. Le personnel est incroyable et attentionné. Mon restaurant préféré à Alger."</p>
+      <div class="eyebrow">Amine T.</div>
+    </div>
+    <div class="test-card">
+      <div class="stars">★★★★★</div>
+      <p>"Le restaurant est très propre, la nourriture est incroyable. Vous ne regretterez pas d'y avoir mangé."</p>
+      <div class="eyebrow">Sarah M.</div>
+    </div>
+    <div class="test-card">
+      <div class="stars">★★★★★</div>
+      <p>"J'ai mangé l'un des meilleurs plats autour... T-Bone, Sushi, tout était incroyable."</p>
+      <div class="eyebrow">Karim B.</div>
+    </div>
+    <div class="test-card">
+      <div class="stars">★★★★★</div>
+      <p>"Superbe décoration, ambiance très classe, plats copieux et délicieux !"</p>
+      <div class="eyebrow">Lydia C.</div>
     </div>
   </div>
 </section>
 
-<!-- GALLERY CAROUSEL -->
-<section style="padding: 120px 0 120px 28px;">
-  <div class="food-track reveal">
-    <div class="food-card"><img src="https://scaneatio.s3.eu-central-1.amazonaws.com/items/sIGtYP0o6pI8jyXmugY5TVaqKDKX6y1778077870.jpg" alt="T-Bone"><div class="food-name">T-Bone Grillé<small>Viandes</small></div></div>
-    <div class="food-card"><img src="https://scaneatio.s3.eu-central-1.amazonaws.com/items/azhgT4IQePRWMcJwbIMqcYHcCzBIHb1777905380.jpeg" alt="Dragon Maki"><div class="food-name">Dragon Maki<small>Sushi</small></div></div>
-    <div class="food-card"><img src="https://scaneatio.s3.eu-central-1.amazonaws.com/items/CxskxIwmTsuhKdzZUUUYB9ZbJuuwfH1777837956.JPG" alt="Loup de mer"><div class="food-name">Loup de mer<small>Poissons</small></div></div>
-    <div class="food-card"><img src="https://scaneatio.s3.eu-central-1.amazonaws.com/items/cY9EIcVFOpvWKrJsnDmtqKcTQPyr8I1777837536.JPG" alt="Salade"><div class="food-name">Salade César<small>Entrées</small></div></div>
-    <div class="food-card"><img src="https://scaneatio.s3.eu-central-1.amazonaws.com/items/iAFcy0fzzevnttk8D7dMZhn9asHUCd1777828266.JPG" alt="Dessert"><div class="food-name">Fondant au chocolat<small>Desserts</small></div></div>
-  </div>
-</section>
-
-<!-- GIFT CARD -->
-<section class="gift-card-section reveal" style="border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);">
-  <div class="wrap" style="text-align: center; padding: 120px 0;">
-    <div class="eyebrow">Partager l'Expérience</div>
-    <h2 class="title gold">Offrez le Goût<br>de la Tradition</h2>
-    <p style="margin: 20px auto 40px; font-size: 1.1rem; color: var(--cream); max-width: 500px;">Pour un anniversaire, une célébration ou un simple merci, une carte cadeau Miro rassemble autour de saveurs inoubliables.</p>
-    <a href="#visit" class="btn solid">Commander une Carte</a>
-  </div>
-</section>
-
-<!-- VISIT LIGHT SECTION -->
-<section class="visit-section bg-light" id="visit">
-  <div class="wrap reveal">
-    <div class="eyebrow">L'Expérience</div>
-    <h2 class="title">Nous Trouver</h2>
-    <div class="info-blocks">
-      <div class="info-block">
-        <h4>Adresse</h4>
-        <p>Miro Restaurant & Lounge<br>Alger, Algérie</p>
-      </div>
-      <div class="info-block">
-        <h4>Horaires</h4>
-        <p>Ouvert tous les jours, midi et soir.<br>De 12h00 à Minuit</p>
-      </div>
-      <div class="info-block">
-        <h4>Contact</h4>
-        <p>Réservation via Instagram<br>@miro.restaurant</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- MEGA FOOTER -->
-<footer class="mega-footer">
-  <div class="footer-links-grid">
-    <div class="footer-col">
+<footer class="footer">
+  <div class="footer-grid">
+    <div>
       <h5>Découvrir</h5>
       <a href="index.html">Accueil</a>
       <a href="menu.html">La Carte</a>
       <a href="#about">Le Lieu</a>
       <a href="gallery.html">Galerie d'Art</a>
     </div>
-    <div class="footer-col">
+    <div>
       <h5>Légal</h5>
       <a href="#">Politique de confidentialité</a>
       <a href="#">Conditions d'utilisation</a>
-      <a href="#">Politique des cookies</a>
     </div>
-    <div class="footer-col">
+    <div>
       <h5>Actions</h5>
       <a href="menu.html">Voir la Carte</a>
-      <a href="#">Carte Cadeau</a>
       <a href="#visit">Réserver</a>
     </div>
-    <div class="footer-col">
+    <div>
       <h5>Réseaux Sociaux</h5>
       <a href="https://www.instagram.com/miro.restaurant" target="_blank">Instagram</a>
       <a href="https://www.tiktok.com/@mirorestaurant.alger" target="_blank">TikTok</a>
     </div>
   </div>
-  
-  <div class="footer-brand">
-    MIRO RESTAURANT
-  </div>
-  
-  <div class="footer-bottom">
-    <div>© <span id="year"></span> Miro Restaurant</div>
-    <div>Tous Droits Réservés</div>
-    <div>Menu propulsé par ScanEat</div>
-  </div>
+  <div class="footer-brand">MIRO RESTAURANT</div>
 </footer>
 
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
 <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
-<script>
-  // Smooth scroll (Lenis) - Sans conflit CSS
-  const lenis = new Lenis({
-    duration: 1.0, 
-    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-    smooth: true
-  });
-  function raf(time) {
-    lenis.raf(time);
-    requestAnimationFrame(raf);
-  }
-  requestAnimationFrame(raf);
+<script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
 
-  document.getElementById('year').textContent = new Date().getFullYear();
+<script>
+  // 1. Smooth Scroll
+  const lenis = new Lenis({ duration: 1.2, smooth: true });
+  function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+  requestAnimationFrame(raf);
   
-  // Mobile Menu
+  gsap.registerPlugin(ScrollTrigger);
+  lenis.on('scroll', ScrollTrigger.update);
+  gsap.ticker.add((time) => { lenis.raf(time * 1000); });
+  gsap.ticker.lagSmoothing(0);
+
+  // 2. Custom SplitText Function
+  function splitTextWords(selector) {
+    document.querySelectorAll(selector).forEach(el => {
+      const text = el.innerText;
+      el.innerHTML = text.split(' ').map(word => `<span class="word"><span class="word-inner">${word}</span></span>`).join(' ');
+    });
+  }
+  splitTextWords('.text-split');
+
+  // 3. Animations
+  const heroTl = gsap.timeline();
+  
+  heroTl.fromTo('.hero-logo', 
+    { opacity: 0, y: 30 },
+    { opacity: 1, y: 0, duration: 1, ease: "power3.out", delay: 0.2 }
+  )
+  .to('.hero .word-inner', {
+    y: 0, duration: 1, ease: "power4.out", stagger: 0.05
+  }, "-=0.6")
+  .fromTo('.hero-side-text, .hero-desc',
+    { opacity: 0, y: 20 },
+    { opacity: 1, y: 0, duration: 0.8, stagger: 0.1, ease: "power3.out" },
+    "-=0.5"
+  )
+  .to('.review-box', {
+    opacity: 1, y: 0, duration: 0.8, ease: "power3.out"
+  }, "-=0.6");
+
+  gsap.utils.toArray('[data-speed]').forEach(el => {
+    // Only apply parallax if screen width is greater than 900px
+    if (window.innerWidth > 900) {
+      const speed = parseFloat(el.getAttribute('data-speed'));
+      const yValue = (1 - speed) * 100;
+      gsap.to(el, {
+        yPercent: yValue,
+        ease: "none",
+        scrollTrigger: {
+          trigger: el.parentElement,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: true
+        }
+      });
+    }
+  });
+
+  gsap.utils.toArray('section').forEach(section => {
+    const words = section.querySelectorAll('.text-split .word-inner');
+    if(words.length > 0 && !section.classList.contains('hero')) {
+      gsap.to(words, {
+        y: 0, duration: 1, ease: "power3.out", stagger: 0.02,
+        scrollTrigger: { trigger: section, start: "top 80%" }
+      });
+    }
+    const fadeUps = section.querySelectorAll('.fade-up');
+    if(fadeUps.length > 0) {
+      gsap.fromTo(fadeUps, 
+        { opacity: 0, y: 30 },
+        { opacity: 1, y: 0, duration: 1, ease: "power3.out", stagger: 0.1,
+          scrollTrigger: { trigger: section, start: "top 80%" }
+        }
+      );
+    }
+  });
+
+  // 4. Header Color Change
+  const header = document.getElementById('header');
+  window.addEventListener('scroll', () => {
+    if(window.scrollY > 50) header.classList.add('scrolled');
+    else header.classList.remove('scrolled');
+  });
+
+  ScrollTrigger.create({
+    trigger: "#drinks-section",
+    start: "top 50px", 
+    end: "bottom 50px",
+    onEnter: () => header.classList.add("is-light"),
+    onLeave: () => header.classList.remove("is-light"),
+    onEnterBack: () => header.classList.add("is-light"),
+    onLeaveBack: () => header.classList.remove("is-light")
+  });
+
+  // 5. Catering Slider
+  new Splide('#gallery-slider', {
+    type: 'loop', perPage: 3, focus: 'center', gap: '40px', arrows: false, pagination: false,
+    breakpoints: { 900: { perPage: 2 }, 600: { perPage: 1 } }
+  }).mount();
+
+  // 6. Marquee GSAP
+  const marquee = document.getElementById('marquee');
+  const totalWidth = marquee.scrollWidth;
+  gsap.to(marquee, { x: -totalWidth / 2, ease: "none", duration: 25, repeat: -1 });
+
+  // 7. Mobile Menu GSAP
   const burger = document.getElementById('burger');
   const mobileNav = document.getElementById('mobile-nav');
-  if(burger && mobileNav) {
-    burger.addEventListener('click', () => {
-      burger.classList.toggle('active');
-      mobileNav.classList.toggle('open');
+  const mLinks = document.querySelectorAll('.m-link');
+  
+  const menuTl = gsap.timeline({ paused: true, reversed: true });
+  menuTl.to(mobileNav, { y: '0%', visibility: 'visible', duration: 0.6, ease: 'power3.inOut' })
+        .fromTo(mLinks, { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, stagger: 0.1, ease: 'power3.out' }, "-=0.2");
+        
+  burger.addEventListener('click', () => {
+    burger.classList.toggle('active');
+    if (menuTl.reversed()) { 
+      menuTl.play(); 
+      lenis.stop(); // Prevent scrolling when menu is open
+    } else { 
+      menuTl.reverse(); 
+      lenis.start();
+    }
+  });
+  
+  mLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      burger.classList.remove('active');
+      menuTl.reverse();
+      lenis.start();
     });
-    mobileNav.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => {
-        burger.classList.remove('active');
-        mobileNav.classList.remove('open');
-      });
-    });
-  }
+  });
 
-  // scroll reveal
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
-  }, { threshold: .15 });
-  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 </script>
 </body>
 </html>

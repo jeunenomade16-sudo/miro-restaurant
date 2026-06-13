@@ -1,458 +1,500 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Idlès Art Gallery, l'espace d'art contemporain du Miro Restaurant & Lounge à Alger. Peinture, sculpture, céramique et photographie d'artistes algériens.">
-  <title>Idlès Art Gallery — par Miro Restaurant & Lounge · Alger</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Idlès Art Gallery — Miro Restaurant</title>
+<link rel="icon" href="logo.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg-dark: #292520; /* The main site background */
+    --bg: #e2d4c0; /* Beige theme for gallery! */
+    --gold: #d6a86c; 
+    --cream: #292520; /* inverted cream to dark charcol for text */
+    --muted: rgba(41,37,32,0.7);
+    --line: rgba(41,37,32,0.15);
+    --line-dark: rgba(214,168,108,0.2);
+    --serif: 'Cormorant Garamond',serif;
+    --sans: 'Jost',sans-serif;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    background: var(--bg);
+    color: var(--cream);
+    font-family: var(--sans);
+    font-weight: 400;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+  a { color:inherit; text-decoration:none; }
+  ::selection { background: var(--gold); color: var(--bg); }
+  img { max-width: 100%; display: block; }
+  
+  .h1 { font-family: var(--serif); font-weight: 400; font-size: clamp(4rem, 15vw, 8rem); line-height: 0.9; text-transform: uppercase; color: var(--cream); }
+  .h2 { font-family: var(--serif); font-weight: 400; font-size: clamp(3rem, 10vw, 5rem); line-height: 1; text-transform: uppercase; }
+  .eyebrow { font-family: var(--sans); font-size: 0.85rem; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 20px; display: block; color: var(--muted); }
+  
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center;
+    font-family: var(--sans); font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 14px 30px; border: 1px solid var(--cream); color: var(--cream);
+    transition: 0.4s ease; cursor: pointer; background: transparent; border-radius: 40px;
+  }
+  .btn:hover { background: var(--cream); color: var(--bg); }
+  .btn.solid { background: var(--gold); color: var(--bg-dark); border-color: var(--gold); }
+  .btn.solid:hover { background: transparent; color: var(--gold); }
+  
+  /* HEADER & MOBILE MENU */
+  .header {
+    position: fixed; top: 0; left: 0; width: 100%; z-index: 105;
+    padding: 30px 50px; display: flex; justify-content: space-between; align-items: center;
+    transition: background 0.4s ease, padding 0.4s ease;
+  }
+  .header.scrolled { background: rgba(226, 212, 192, 0.95); backdrop-filter: blur(10px); padding: 20px 50px; border-bottom: 1px solid var(--line); }
+  
+  .brand { display: flex; flex-direction: column; align-items: center; color: var(--cream); font-family: var(--serif); font-size: 2rem; line-height: 1; z-index: 110; position: relative; }
+  .brand span { font-family: var(--sans); font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase; margin-top: 5px; color: var(--muted); }
+  .back-link { position: absolute; right: 50px; top: 50%; transform: translateY(-50%); font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); transition: 0.3s; z-index: 110; }
+  .back-link:hover { color: var(--gold); }
+  .back-link svg { display: inline-block; vertical-align: middle; margin-right: 6px; }
 
-  <!-- SEO & Open Graph -->
-  <meta property="og:title" content="Idlès Art Gallery | Miro Restaurant & Lounge">
-  <meta property="og:description" content="L'espace d'art contemporain du Miro Restaurant & Lounge, au cœur d'Alger.">
-  <meta property="og:type" content="website">
-  <meta property="og:image" content="gallery_interior.png">
-  <link rel="icon" href="logo.png">
+  .mobile-nav {
+    position: fixed; inset: 0; background: rgba(41,37,32,0.98); z-index: 100;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    backdrop-filter: blur(10px); transform: translateY(-100%); visibility: hidden;
+  }
+  .mobile-nav-links { display: flex; flex-direction: column; gap: 30px; text-align: center; }
+  .mobile-nav a { font-family: var(--serif); font-size: clamp(2rem, 5vw, 3.5rem); color: var(--bg); text-transform: uppercase; }
+  .mobile-nav .btn { font-family: var(--sans); font-size: 1rem; margin-top: 30px; border-color: var(--gold); color: var(--gold); background: transparent; }
+  
+  /* HERO */
+  .hero {
+    position: relative; min-height: 100vh; display: flex; align-items: center; justify-content: center;
+    text-align: center; overflow: hidden; padding: 0 20px;
+  }
+  .hero-content { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; }
+  .hero-flex { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; justify-content: center; margin-top: 30px; }
+  
+  /* Decorative separator */
+  .hero-separator { width: 60px; height: 1px; background: var(--gold); margin: 40px auto 0; opacity: 0; }
+  
+  /* Scroll indicator */
+  .scroll-hint { position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 10px; color: var(--muted); font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; }
+  .scroll-line { width: 1px; height: 40px; background: linear-gradient(to bottom, var(--gold), transparent); animation: scrollPulse 2s ease-in-out infinite; }
+  @keyframes scrollPulse { 0%,100% { opacity: 0.3; transform: scaleY(0.6); } 50% { opacity: 1; transform: scaleY(1); } }
+  
+  /* GSAP text splitting utility classes */
+  .word { display: inline-block; overflow: hidden; vertical-align: bottom; }
+  .word-inner { display: inline-block; transform: translateY(100%); will-change: transform; }
 
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+  /* Pixel Trail Magic */
+  .pixel-trail-wrapper { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; overflow: hidden; filter: url('#gooey-filter-pixel-trail'); pointer-events: none; }
+  .pixel-dot { background-color: rgba(255,255,255,0.9); opacity: 0; will-change: opacity; }
+  .hero-content { pointer-events: none; }
+  .hero-content * { pointer-events: auto; }
 
-  <!-- Stylesheet -->
-  <link rel="stylesheet" href="styles.css">
+  /* ABOUT SECTION */
+  .about-section { padding: 120px 8vw; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; border-top: 1px solid var(--line); }
+  .about-text p { color: var(--muted); margin-bottom: 20px; font-size: 1.1rem; }
+  .about-text strong { color: var(--cream); font-weight: 500; }
+  .about-signature { display: flex; align-items: center; gap: 20px; margin-top: 40px; padding-top: 30px; border-top: 1px solid var(--line); }
+  .signature-img { width: 60px; height: 60px; border-radius: 50%; background: var(--gold); display: flex; align-items: center; justify-content: center; font-family: var(--serif); font-size: 1.5rem; font-style: italic; color: var(--bg-dark); flex-shrink: 0; }
+  .about-image { width: 100%; aspect-ratio: 4/5; object-fit: cover; will-change: transform; }
+  .about-image-wrapper { position: relative; overflow: hidden; }
+  .about-image-wrapper::after { content: ''; position: absolute; inset: 0; border: 1px solid rgba(41,37,32,0.1); pointer-events: none; }
+
+  /* GALLERY GRID */
+  .gallery-section { padding: 80px 8vw 120px; border-top: 1px solid var(--line); }
+  .gallery-header { text-align: center; margin-bottom: 60px; }
+  .gallery-filters { display: flex; justify-content: center; gap: 12px; margin-bottom: 60px; flex-wrap: wrap; }
+  .filter-btn { background: transparent; border: 1px solid var(--line); color: var(--muted); padding: 10px 24px; border-radius: 30px; cursor: pointer; font-family: var(--sans); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.1em; transition: 0.3s; }
+  .filter-btn.active, .filter-btn:hover { background: var(--cream); color: var(--bg); border-color: var(--cream); }
+
+  .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 50px 40px; }
+  .gallery-item { position: relative; overflow: hidden; cursor: pointer; aspect-ratio: 3/4; }
+  .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter 0.5s; filter: grayscale(0.15); }
+  .gallery-item:hover img { transform: scale(1.05); filter: grayscale(0); }
+  
+  .art-info { margin-top: 20px; text-align: center; }
+  .art-title { font-family: var(--serif); font-size: 1.5rem; color: var(--cream); margin-bottom: 4px; transition: color 0.3s; }
+  .art-wrapper:hover .art-title { color: var(--gold); }
+  .art-artist { font-family: var(--sans); font-size: 0.9rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; }
+  .art-medium { font-family: var(--sans); font-size: 0.8rem; color: var(--muted); margin-top: 4px; font-style: italic; }
+
+  /* FORM SECTION */
+  .contact-section { padding: 120px 8vw; border-top: 1px solid var(--line); display: grid; grid-template-columns: 1fr 1fr; gap: 60px; }
+  .form-group { margin-bottom: 30px; }
+  .form-label { display: block; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 10px; }
+  .form-input { width: 100%; background: transparent; border: none; border-bottom: 1px solid var(--line); padding: 10px 0; font-family: var(--serif); font-size: 1.2rem; color: var(--cream); outline: none; transition: 0.3s; }
+  .form-input::placeholder { color: rgba(41,37,32,0.3); }
+  .form-input:focus { border-bottom-color: var(--cream); }
+  
+  /* FOOTER */
+  .footer { padding: 100px 40px 40px; border-top: 1px solid var(--line); background: var(--bg-dark); color: var(--bg); }
+  .footer-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; max-width: 1400px; margin: 0 auto; }
+  .footer h5 { font-family: var(--sans); color: var(--bg); margin-bottom: 24px; font-size: 1rem; }
+  .footer a { display: block; color: rgba(226, 212, 192, 0.7); margin-bottom: 12px; font-size: 0.9rem; transition: 0.3s; }
+  .footer a:hover { color: var(--gold); }
+  .footer-brand { font-family: var(--sans); font-size: clamp(4rem, 12vw, 15rem); color: var(--gold); text-align: center; line-height: 0.8; margin-top: 80px; letter-spacing: -2px; }
+  .footer-bottom { display: flex; justify-content: space-between; align-items: center; max-width: 1400px; margin: 40px auto 0; padding-top: 30px; border-top: 1px solid rgba(226,212,192,0.15); color: rgba(226,212,192,0.5); font-size: 0.8rem; }
+  
+  /* Reveal animation helper */
+  .reveal { opacity: 0; transform: translateY(40px); }
+  
+  /* RESPONSIVE */
+  @media(max-width: 900px) {
+    .header { padding: 20px; justify-content: center; }
+    .back-link { position: static; transform: none; margin-top: 10px; }
+    .contact-section { grid-template-columns: 1fr; padding: 80px 20px; }
+    .about-section { grid-template-columns: 1fr; padding: 80px 20px; gap: 40px; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .footer-bottom { flex-direction: column; gap: 10px; text-align: center; }
+    .gallery-section { padding: 40px 20px 80px; }
+    .h1 { font-size: clamp(3.5rem, 12vw, 5rem); }
+    .scroll-hint { display: none; }
+  }
+  @media(max-width: 600px) {
+    .footer-grid { grid-template-columns: 1fr; }
+    .gallery-grid { grid-template-columns: 1fr; }
+  }
+</style>
 </head>
-<body class="lang-fr">
+<body>
 
-  <!-- --- HEADER & NAVIGATION --- -->
-  <header id="main-header">
-    <div class="container navbar">
-      <a href="#home" class="logo" id="logo-link">
-        IDLÈS
-        <span class="logo-sub">Art Gallery</span>
-      </a>
+<svg style="visibility: hidden; position: absolute;" width="0" height="0" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="gooey-filter-pixel-trail">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="5" result="blur" />
+      <feColorMatrix in="blur" type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9" result="goo" />
+      <feComposite in="SourceGraphic" in2="goo" operator="atop" />
+    </filter>
+  </defs>
+</svg>
 
-      <nav>
-        <ul class="nav-links" id="nav-menu">
-          <li><a href="#home" class="active" id="nav-link-home"><span class="lang-fr">Accueil</span><span class="lang-en">Home</span></a></li>
-          <li><a href="#about" id="nav-link-about"><span class="lang-fr">À Propos</span><span class="lang-en">About</span></a></li>
-          <li><a href="#exhibitions" id="nav-link-exh"><span class="lang-fr">Expositions</span><span class="lang-en">Exhibitions</span></a></li>
-          <li><a href="#gallery" id="nav-link-gallery"><span class="lang-fr">Œuvres</span><span class="lang-en">Artworks</span></a></li>
-          <li><a href="#submit" id="nav-link-submit"><span class="lang-fr">Espace Artistes</span><span class="lang-en">Artist Space</span></a></li>
-          <li><a href="#contact" id="nav-link-contact"><span class="lang-fr">Contact</span><span class="lang-en">Contact</span></a></li>
-          <li><a href="index.html" class="nav-restaurant">↩ <span class="lang-fr">Le Restaurant</span><span class="lang-en">The Restaurant</span></a></li>
-        </ul>
-      </nav>
+<header class="header" id="header" style="justify-content: center;">
+  <a href="index.html" class="back-link">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>
+    Le Restaurant
+  </a>
+  <a href="gallery.html" class="brand">
+    IDLÈS
+    <span>Art Gallery</span>
+  </a>
+</header>
 
-      <div class="nav-tools">
-        <div class="lang-switcher" role="navigation" aria-label="Langue">
-          <button class="lang-btn active" id="lang-fr-btn">FR</button>
-          <button class="lang-btn" id="lang-en-btn">EN</button>
-        </div>
-        <button class="menu-toggle" id="mobile-menu-toggle" aria-label="Menu de navigation">
-          <span></span><span></span><span></span>
-        </button>
-      </div>
+
+
+<section class="hero" id="hero">
+  <div class="pixel-trail-wrapper" id="pixel-trail-wrapper"></div>
+  <div class="hero-content">
+    <h1 class="h1 text-split">L'Âme</h1>
+    <h1 class="h1 text-split">Créative</h1>
+    <div class="hero-flex">
+      <span class="eyebrow text-split" style="margin:0;">Peinture</span>
+      <span class="eyebrow text-split" style="margin:0;">·</span>
+      <span class="eyebrow text-split" style="margin:0;">Sculpture</span>
+      <span class="eyebrow text-split" style="margin:0;">·</span>
+      <span class="eyebrow text-split" style="margin:0;">Photographie</span>
     </div>
-  </header>
+    <div class="hero-separator"></div>
+  </div>
+  <div class="scroll-hint">
+    <div class="scroll-line"></div>
+    Défiler
+  </div>
+</section>
 
-  <!-- --- HERO SECTION --- -->
-  <section id="home" class="hero">
-    <div class="hero-bg"></div>
-    <div class="hero-content">
-      <span class="hero-subtitle"><span class="lang-fr">Une signature Miro Restaurant &amp; Lounge · Alger</span><span class="lang-en">A Miro Restaurant &amp; Lounge signature · Algiers</span></span>
-      <h1 class="hero-title">
-        <span class="lang-fr">L'âme de la culture algérienne,</span>
-        <span class="lang-en">The soul of Algerian culture,</span>
-        <span class="italic-title text-accent"><span class="lang-fr">au cœur d'Alger.</span><span class="lang-en">in the heart of Algiers.</span></span>
-      </h1>
-      <p class="hero-description">
-        <span class="lang-fr">Idlès Art Gallery est l'espace d'art du Miro Restaurant &amp; Lounge : un pont culturel né à Alger, célébrant l'expression contemporaine algérienne, entre héritage saharien et modernité.</span>
-        <span class="lang-en">Idlès Art Gallery is the art space of Miro Restaurant &amp; Lounge: a cultural bridge born in Algiers, celebrating contemporary Algerian expression, merging Saharan heritage with modernity.</span>
-      </p>
-      <div class="hero-actions">
-        <a href="#gallery" class="btn-primary"><span class="lang-fr">Explorer la Galerie</span><span class="lang-en">Explore Gallery</span>
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-        </a>
-        <a href="#contact" class="btn-secondary"><span class="lang-fr">Planifier votre visite</span><span class="lang-en">Plan Your Visit</span></a>
-      </div>
-    </div>
-    <div class="scroll-indicator"><span class="lang-fr">Défiler</span><span class="lang-en">Scroll</span></div>
-  </section>
-
-  <!-- --- ABOUT SECTION --- -->
-  <section id="about" class="container section-padding reveal">
-    <div class="about-grid">
-      <div class="about-text">
-        <span class="section-tag"><span class="lang-fr">Qui Sommes-Nous</span><span class="lang-en">Who We Are</span></span>
-        <h2 class="section-title"><span class="lang-fr">L'Esprit d'Idlès au cœur d'Alger</span><span class="lang-en">The Spirit of Idlès in Algiers</span></h2>
-        <p>
-          <span class="lang-fr">Inaugurée en janvier 2026 et fondée par l'artiste et designer d'intérieur <strong>Zola Djenane</strong>, <strong>Idlès Art Gallery</strong> est née avec l'ambition de créer un espace d'échange ouvert, inclusif et chaleureux, au sein de l'univers Miro. La galerie se veut un lieu de rencontres fertiles pour les créateurs.</span>
-          <span class="lang-en">Inaugurated in January 2026 and founded by artist and interior designer <strong>Zola Djenane</strong>, <strong>Idlès Art Gallery</strong> was born out of the ambition to create an open, inclusive, and warm space within the Miro universe. The gallery hosts inspiring artistic encounters.</span>
-        </p>
-        <p>
-          <span class="lang-fr">Le nom <strong>Idlès</strong> s'inspire de sa signification — la <strong>culture</strong> — qui incarne à elle seule la vocation de la galerie. Il existe par ailleurs une commune préservée portant ce nom, près de Tamanrasset, dans le grand Sud algérien : une belle résonance qui évoque la profondeur de la mémoire culturelle, le retour aux racines et l'imagination inspirée par la majesté du désert.</span>
-          <span class="lang-en">The name <strong>Idlès</strong> draws its inspiration from its meaning — <strong>culture</strong> — which embodies the very purpose of the gallery. There is also an untouched locality bearing this name near Tamanrasset, in Algeria's deep South: a fitting resonance evoking the depth of cultural memory, a return to roots, and imagination inspired by the desert.</span>
-        </p>
-        <p>
-          <span class="lang-fr">La galerie expose une grande diversité de disciplines : <strong>peinture, sculpture, céramique et photographie</strong>, des grands maîtres algériens aux jeunes talents émergents.</span>
-          <span class="lang-en">The gallery showcases <strong>painting, sculpture, ceramics, and photography</strong>, from established Algerian masters to young emerging talents.</span>
-        </p>
-
-        <div class="about-signature">
-          <div class="signature-img">ZD</div>
-          <div class="signature-info">
-            <h5>Zola Djenane</h5>
-            <p><span class="lang-fr">Fondatrice &amp; Artiste</span><span class="lang-en">Founder &amp; Artist</span></p>
-          </div>
-        </div>
-      </div>
-
-      <div class="about-image-wrapper">
-        <img src="gallery_interior.png" alt="Intérieur de la galerie Idlès" class="about-image">
-        <div class="about-image-frame"></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- --- EXHIBITIONS SECTION --- -->
-  <section id="exhibitions" class="exhibitions section-padding reveal">
-    <div class="container">
-      <div class="exhibitions-header">
-        <div>
-          <span class="section-tag"><span class="lang-fr">Programmation</span><span class="lang-en">Calendar</span></span>
-          <h2 class="section-title"><span class="lang-fr">Nos Expositions</span><span class="lang-en">Our Exhibitions</span></h2>
-        </div>
-        <p class="exhibitions-intro"><span class="lang-fr">Nous concevons chaque exposition comme un dialogue intime entre les artistes, leurs œuvres et le public algérois.</span><span class="lang-en">We curate each exhibition as an intimate dialogue between the artists, their creations, and the local public.</span></p>
-      </div>
-
-      <div class="exhibition-cards">
-        <div class="exhibition-card">
-          <div class="exh-img-wrapper">
-            <span class="exh-status"><span class="lang-fr">En cours</span><span class="lang-en">Current</span></span>
-            <img src="art-reflets.png" alt="Mosaïque Contemporaine" class="exh-img">
-          </div>
-          <div class="exh-content">
-            <span class="exh-date"><span class="lang-fr">17 Janvier — Fin Juin 2026</span><span class="lang-en">January 17 — Late June 2026</span></span>
-            <h3 class="exh-title"><span class="lang-fr">Mosaïque Contemporaine : 17 Regards d'Algérie</span><span class="lang-en">Contemporary Mosaic: 17 Perspectives from Algeria</span></h3>
-            <p class="exh-desc"><span class="lang-fr">Exposition collective inaugurale. Dix-sept artistes algériens phares d'horizons variés se réunissent pour célébrer la renaissance de la création artistique.</span><span class="lang-en">Inaugural collective exhibition. Seventeen prominent Algerian artists gather to celebrate the artistic rebirth.</span></p>
-            <div class="exh-artists"><span class="lang-fr"><strong>Artistes :</strong> N. Chegrane, Dj. Ababsia, L. Dokman, N. Hamouche, G. Sabri, Z. Bacha, C. Belhimer...</span><span class="lang-en"><strong>Featured:</strong> N. Chegrane, Dj. Ababsia, L. Dokman, N. Hamouche, G. Sabri, Z. Bacha, C. Belhimer...</span></div>
-          </div>
-        </div>
-
-        <div class="exhibition-card">
-          <div class="exh-img-wrapper">
-            <span class="exh-status archive"><span class="lang-fr">À venir</span><span class="lang-en">Upcoming</span></span>
-            <img src="art-fauves.png" alt="Exposition Fauvisme" class="exh-img">
-          </div>
-          <div class="exh-content">
-            <span class="exh-date"><span class="lang-fr">Juillet — Août 2026</span><span class="lang-en">July — August 2026</span></span>
-            <h3 class="exh-title"><span class="lang-fr">Lumières Intérieures &amp; Paysages Fauves</span><span class="lang-en">Inner Lights &amp; Fauvist Landscapes</span></h3>
-            <p class="exh-desc"><span class="lang-fr">Une exposition solo consacrée à la peintre Habbiba Bensekha. Ses toiles aux couleurs pures captent l'énergie de la lumière et des paysages du pays.</span><span class="lang-en">A solo exhibition dedicated to painter Habbiba Bensekha. Her bright works capture the light and raw landscapes of Algeria.</span></p>
-            <div class="exh-artists"><span class="lang-fr"><strong>Artiste :</strong> Habbiba Bensekha (Peinture semi-abstraite)</span><span class="lang-en"><strong>Artist:</strong> Habbiba Bensekha (Semi-abstract painting)</span></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- --- GALLERY SECTION --- -->
-  <section id="gallery" class="container section-padding reveal">
-    <span class="section-tag center"><span class="lang-fr">Catalogue</span><span class="lang-en">Collection</span></span>
-    <h2 class="section-title center mb-3"><span class="lang-fr">La Galerie Virtuelle</span><span class="lang-en">The Virtual Gallery</span></h2>
-
-    <div class="gallery-filter-bar" role="tablist" aria-label="Filtres Galerie">
-      <button class="filter-btn active" data-filter="all"><span class="lang-fr">Tout</span><span class="lang-en">All</span></button>
-      <button class="filter-btn" data-filter="painting"><span class="lang-fr">Peintures</span><span class="lang-en">Paintings</span></button>
-      <button class="filter-btn" data-filter="sculpture"><span class="lang-fr">Sculptures &amp; Céramiques</span><span class="lang-en">Sculpture &amp; Ceramics</span></button>
-      <button class="filter-btn" data-filter="photography"><span class="lang-fr">Photographies</span><span class="lang-en">Photography</span></button>
-    </div>
-
-    <div class="gallery-grid" id="gallery-grid">
-      <div class="gallery-item" data-category="painting" data-index="0" role="button" aria-haspopup="dialog" aria-label="Agrandir l'œuvre">
-        <div class="art-img-wrapper">
-          <img src="art-assekrem.png" alt="Le Crépuscule de l'Assekrem" class="art-img" loading="lazy">
-          <div class="art-overlay">
-            <span class="art-category"><span class="lang-fr">Peinture</span><span class="lang-en">Painting</span></span>
-            <h3 class="art-title">Le Crépuscule de l'Assekrem</h3>
-            <p class="art-artist">Zola Djenane</p>
-            <div class="art-details"><span>Acrylic on canvas</span><span>120 x 100 cm</span></div>
-            <div class="art-action"><span class="lang-fr">Détails de l'œuvre</span><span class="lang-en">View Details</span>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="gallery-item" data-category="painting" data-index="1" role="button" aria-haspopup="dialog" aria-label="Agrandir l'œuvre">
-        <div class="art-img-wrapper">
-          <img src="art-fauves.png" alt="Rythmes Fauves" class="art-img" loading="lazy">
-          <div class="art-overlay">
-            <span class="art-category"><span class="lang-fr">Peinture</span><span class="lang-en">Painting</span></span>
-            <h3 class="art-title">Rythmes Fauves</h3>
-            <p class="art-artist">Habbiba Bensekha</p>
-            <div class="art-details"><span>Oil on canvas</span><span>90 x 90 cm</span></div>
-            <div class="art-action"><span class="lang-fr">Détails de l'œuvre</span><span class="lang-en">View Details</span>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="gallery-item" data-category="sculpture" data-index="2" role="button" aria-haspopup="dialog" aria-label="Agrandir l'œuvre">
-        <div class="art-img-wrapper">
-          <img src="art-ceramique.png" alt="Mémoire Nomade" class="art-img" loading="lazy">
-          <div class="art-overlay">
-            <span class="art-category"><span class="lang-fr">Céramique d'Art</span><span class="lang-en">Art Ceramic</span></span>
-            <h3 class="art-title">Mémoire Nomade</h3>
-            <p class="art-artist">Lamine Dokman</p>
-            <div class="art-details"><span>Glazed Clay</span><span>45 x 30 cm</span></div>
-            <div class="art-action"><span class="lang-fr">Détails de l'œuvre</span><span class="lang-en">View Details</span>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="gallery-item" data-category="photography" data-index="3" role="button" aria-haspopup="dialog" aria-label="Agrandir l'œuvre">
-        <div class="art-img-wrapper">
-          <img src="art-casbah.png" alt="Les Ruelles de la Casbah" class="art-img" loading="lazy">
-          <div class="art-overlay">
-            <span class="art-category"><span class="lang-fr">Photographie</span><span class="lang-en">Photography</span></span>
-            <h3 class="art-title">Les Ruelles de la Casbah</h3>
-            <p class="art-artist">Ghiless Sabri</p>
-            <div class="art-details"><span>Fine Art Print</span><span>60 x 80 cm</span></div>
-            <div class="art-action"><span class="lang-fr">Détails de l'œuvre</span><span class="lang-en">View Details</span>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="gallery-item" data-category="painting" data-index="4" role="button" aria-haspopup="dialog" aria-label="Agrandir l'œuvre">
-        <div class="art-img-wrapper">
-          <img src="art-reflets.png" alt="Reflets Algérois" class="art-img" loading="lazy">
-          <div class="art-overlay">
-            <span class="art-category"><span class="lang-fr">Peinture</span><span class="lang-en">Painting</span></span>
-            <h3 class="art-title">Reflets Algérois</h3>
-            <p class="art-artist">Chakib Belhimer</p>
-            <div class="art-details"><span>Mixed Media</span><span>150 x 120 cm</span></div>
-            <div class="art-action"><span class="lang-fr">Détails de l'œuvre</span><span class="lang-en">View Details</span>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="gallery-item" data-category="sculpture" data-index="5" role="button" aria-haspopup="dialog" aria-label="Agrandir l'œuvre">
-        <div class="art-img-wrapper">
-          <img src="art-bronze.png" alt="L'Envolée d'Idlès" class="art-img" loading="lazy">
-          <div class="art-overlay">
-            <span class="art-category"><span class="lang-fr">Sculpture</span><span class="lang-en">Sculpture</span></span>
-            <h3 class="art-title">L'Envolée d'Idlès</h3>
-            <p class="art-artist">Nouredine Chegrane</p>
-            <div class="art-details"><span>Patinated Bronze</span><span>70 x 40 cm</span></div>
-            <div class="art-action"><span class="lang-fr">Détails de l'œuvre</span><span class="lang-en">View Details</span>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- --- ARTIST SUBMISSION SECTION --- -->
-  <section id="submit" class="submission section-padding reveal">
-    <div class="container submission-layout">
-      <div class="submission-info">
-        <span class="section-tag"><span class="lang-fr">Candidatures</span><span class="lang-en">Call for Artists</span></span>
-        <h2 class="section-title"><span class="lang-fr">Rejoignez Idlès Art Gallery</span><span class="lang-en">Join Idlès Art Gallery</span></h2>
-        <p><span class="lang-fr">Nous étudions en permanence les dossiers de nouveaux artistes résidant en Algérie ou issus de la diaspora. Nous recherchons des expressions artistiques fortes et originales.</span><span class="lang-en">We continuously review submissions from artists residing in Algeria or from the diaspora. We look for strong, original artistic voices.</span></p>
-
-        <div class="submission-steps">
-          <div class="step-item">
-            <span class="step-num">01</span>
-            <div class="step-content">
-              <h4><span class="lang-fr">Portfolio d'Œuvres</span><span class="lang-en">Artwork Portfolio</span></h4>
-              <p><span class="lang-fr">Téléversez un PDF ou des photos de vos dernières créations (3-5 images recommandées).</span><span class="lang-en">Upload a PDF or photos of your recent works (3-5 images recommended).</span></p>
-            </div>
-          </div>
-          <div class="step-item">
-            <span class="step-num">02</span>
-            <div class="step-content">
-              <h4><span class="lang-fr">Biographie &amp; Démarche</span><span class="lang-en">Bio &amp; Concept</span></h4>
-              <p><span class="lang-fr">Décrivez brièvement votre parcours et la philosophie derrière vos travaux.</span><span class="lang-en">Briefly outline your career and the philosophy behind your work.</span></p>
-            </div>
-          </div>
-          <div class="step-item">
-            <span class="step-num">03</span>
-            <div class="step-content">
-              <h4><span class="lang-fr">Revue du Comité</span><span class="lang-en">Committee Review</span></h4>
-              <p><span class="lang-fr">Zola Djenane et l'équipe curatoriale examinent les candidatures chaque mois.</span><span class="lang-en">Zola Djenane and the curatorial board review submissions monthly.</span></p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="form-card">
-        <form id="artist-form" action="#" method="POST" novalidate>
-          <div class="form-group">
-            <label for="artist-name" class="form-label"><span class="lang-fr">Nom Complet *</span><span class="lang-en">Full Name *</span></label>
-            <input type="text" id="artist-name" class="form-input" required>
-          </div>
-          <div class="form-group">
-            <label for="artist-email" class="form-label"><span class="lang-fr">Adresse E-mail *</span><span class="lang-en">Email Address *</span></label>
-            <input type="email" id="artist-email" class="form-input" required>
-          </div>
-          <div class="form-group">
-            <label for="artist-discipline" class="form-label"><span class="lang-fr">Discipline Principale *</span><span class="lang-en">Main Discipline *</span></label>
-            <select id="artist-discipline" class="form-input" required>
-              <option value="" disabled selected><span class="lang-fr">Sélectionnez votre art</span></option>
-              <option value="peinture">Peinture / Painting</option>
-              <option value="sculpture">Sculpture &amp; Modelage</option>
-              <option value="ceramique">Céramique d'Art</option>
-              <option value="photo">Photographie d'Art</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label class="form-label"><span class="lang-fr">Portfolio (Images / PDF max 10MB) *</span><span class="lang-en">Portfolio (Images / PDF max 10MB) *</span></label>
-            <div class="file-upload-wrapper">
-              <input type="file" id="artist-portfolio" class="file-upload-input" accept="image/*,.pdf" required>
-              <div class="file-upload-text">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
-                <span><span class="lang-fr">Glissez-déposez ou cliquez pour parcourir</span><span class="lang-en">Drag and drop or click to browse</span></span>
-              </div>
-              <div class="file-name-display" id="file-name-display"></div>
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="artist-msg" class="form-label"><span class="lang-fr">Présentez brièvement vos motivations *</span><span class="lang-en">Briefly explain your motivations *</span></label>
-            <textarea id="artist-msg" class="form-input" rows="4" required></textarea>
-          </div>
-          <button type="submit" class="btn-primary btn-block"><span class="lang-fr">Soumettre ma candidature</span><span class="lang-en">Submit Application</span></button>
-        </form>
-      </div>
-    </div>
-  </section>
-
-  <!-- --- CONTACT & VISITS SECTION --- -->
-  <section id="contact" class="container section-padding reveal">
-    <div class="contact-grid">
-      <div class="contact-info">
-        <div>
-          <span class="section-tag"><span class="lang-fr">Informations Pratiques</span><span class="lang-en">Plan Your Visit</span></span>
-          <h2 class="section-title"><span class="lang-fr">Venir à la Galerie</span><span class="lang-en">Visit the Gallery</span></h2>
-          <p class="muted"><span class="lang-fr">Idlès Art Gallery accompagne l'expérience du Miro Restaurant &amp; Lounge à Alger. Liez une visite culturelle à un dîner d'exception.</span><span class="lang-en">Idlès Art Gallery complements the Miro Restaurant &amp; Lounge experience in Algiers. Pair a cultural visit with an exceptional dinner.</span></p>
-        </div>
-
-        <div class="info-details">
-          <div class="info-block">
-            <h4><span class="lang-fr">Adresse</span><span class="lang-en">Location</span></h4>
-            <p>Alger, Algérie — Miro Restaurant &amp; Lounge</p>
-          </div>
-          <div class="info-block">
-            <h4><span class="lang-fr">Horaires d'Ouverture</span><span class="lang-en">Opening Hours</span></h4>
-            <p><span class="lang-fr">Tous les jours : 14h00 — 23h00</span><span class="lang-en">Daily: 2:00 PM — 11:00 PM</span></p>
-          </div>
-          <div class="info-block">
-            <h4><span class="lang-fr">Contact Direct</span><span class="lang-en">Get in Touch</span></h4>
-            <p><a href="https://www.instagram.com/miro.restaurant" target="_blank" rel="noopener">@miro.restaurant</a></p>
-            <p><a href="https://www.tiktok.com/@mirorestaurant.alger" target="_blank" rel="noopener">@mirorestaurant.alger</a></p>
-          </div>
-        </div>
-
-        <div class="map-wrapper">
-          <div class="map-placeholder">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--accent-color)" stroke-width="2"><path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-            <span class="lang-fr"><strong>Miro Restaurant &amp; Lounge</strong>, Alger</span>
-            <span class="lang-en"><strong>Miro Restaurant &amp; Lounge</strong>, Algiers</span>
-            <a href="https://maps.google.com/?q=Miro+Restaurant+Alger" target="_blank" rel="noopener noreferrer" class="map-link-btn"><span class="lang-fr">Ouvrir dans Google Maps</span><span class="lang-en">Open in Google Maps</span></a>
-          </div>
-        </div>
-      </div>
-
-      <div class="form-card contact-form-card">
-        <h3 class="section-title small-title"><span class="lang-fr">Écrivez-nous</span><span class="lang-en">Send a Message</span></h3>
-        <form id="contact-form" action="#" method="POST" novalidate>
-          <div class="form-group">
-            <label for="contact-name" class="form-label"><span class="lang-fr">Votre Nom *</span><span class="lang-en">Your Name *</span></label>
-            <input type="text" id="contact-name" class="form-input" required>
-          </div>
-          <div class="form-group">
-            <label for="contact-email" class="form-label"><span class="lang-fr">Votre Adresse E-mail *</span><span class="lang-en">Your Email Address *</span></label>
-            <input type="email" id="contact-email" class="form-input" required>
-          </div>
-          <div class="form-group">
-            <label for="contact-msg" class="form-label"><span class="lang-fr">Message *</span><span class="lang-en">Message *</span></label>
-            <textarea id="contact-msg" class="form-input" rows="5" required></textarea>
-          </div>
-          <button type="submit" class="btn-primary btn-block"><span class="lang-fr">Envoyer le message</span><span class="lang-en">Send Message</span></button>
-        </form>
-      </div>
-    </div>
-  </section>
-
-  <!-- --- FOOTER --- -->
-  <footer>
-    <div class="container">
-      <div class="footer-top">
-        <a href="#home" class="footer-logo">IDLÈS<span class="footer-logo-sub">Art Gallery</span></a>
-        <a href="index.html" class="footer-by"><img src="logo.png" alt="Miro Restaurant & Lounge"><span class="lang-fr">Un espace Miro Restaurant &amp; Lounge</span><span class="lang-en">A Miro Restaurant &amp; Lounge space</span></a>
-        <div class="social-links">
-          <a href="https://www.instagram.com/miro.restaurant" target="_blank" rel="noopener" class="social-icon" aria-label="Instagram">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
-          </a>
-          <a href="https://www.tiktok.com/@mirorestaurant.alger" target="_blank" rel="noopener" class="social-icon" aria-label="TikTok">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M16.5 3c.3 2 1.5 3.6 3.5 3.9v2.5c-1.2 0-2.4-.3-3.5-.9v6.1c0 3.1-2.5 5.6-5.6 5.6S5.3 17.8 5.3 14.7s2.5-5.6 5.6-5.6c.3 0 .6 0 .9.07v2.6c-.3-.1-.6-.15-.9-.15a3.1 3.1 0 1 0 3.1 3.1V3h2.5z"/></svg>
-          </a>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <p>© 2026 Idlès Art Gallery — <span class="lang-fr">Tous droits réservés.</span><span class="lang-en">All rights reserved.</span></p>
-        <div class="footer-meta">
-          <a href="index.html"><span class="lang-fr">Le Restaurant</span><span class="lang-en">The Restaurant</span></a>
-          <a href="#"><span class="lang-fr">Mentions Légales</span><span class="lang-en">Terms</span></a>
-        </div>
-      </div>
-    </div>
-  </footer>
-
-  <!-- --- LIGHTBOX --- -->
-  <div class="lightbox" id="lightbox-viewer" role="dialog" aria-modal="true" aria-label="Afficheur d'œuvre">
-    <button class="lightbox-close" id="lightbox-close-btn" aria-label="Fermer">&times;</button>
-    <button class="lightbox-nav lightbox-prev" id="lightbox-prev-btn" aria-label="Précédent">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>
-    </button>
-    <button class="lightbox-nav lightbox-next" id="lightbox-next-btn" aria-label="Suivant">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
-    </button>
-    <div class="lightbox-container">
-      <div class="lightbox-image-box"><img src="" alt="" class="lightbox-image" id="lightbox-img-element"></div>
-      <div class="lightbox-info-box">
-        <span class="lightbox-category" id="lightbox-category-element">Peinture</span>
-        <h3 class="lightbox-title" id="lightbox-title-element">Titre</h3>
-        <p class="lightbox-artist" id="lightbox-artist-element">Artiste</p>
-        <div class="lightbox-details-grid">
-          <div class="detail-line"><span class="detail-label"><span class="lang-fr">Technique</span><span class="lang-en">Medium</span></span><span class="detail-val" id="lightbox-medium-element">—</span></div>
-          <div class="detail-line"><span class="detail-label"><span class="lang-fr">Dimensions</span><span class="lang-en">Dimensions</span></span><span class="detail-val" id="lightbox-dimensions-element">—</span></div>
-          <div class="detail-line"><span class="detail-label"><span class="lang-fr">Disponibilité</span><span class="lang-en">Availability</span></span><span class="detail-val text-accent" id="lightbox-status-element">Disponible / Available</span></div>
-        </div>
-        <p class="lightbox-description" id="lightbox-desc-element"><span class="lang-fr">Œuvre exposée à la galerie Idlès. Contactez-nous pour toute information ou acquisition.</span><span class="lang-en">Artwork exhibited at Idlès gallery. Contact us for any information or acquisition.</span></p>
+<section class="about-section reveal" id="about">
+  <div class="about-text">
+    <span class="eyebrow">Qui Sommes-Nous</span>
+    <h2 class="h2" style="margin-bottom: 30px; font-size: clamp(2.5rem, 6vw, 4rem);">L'Esprit d'Idlès</h2>
+    <p>Inaugurée en janvier 2026 et fondée par l'artiste et designer d'intérieur <strong>Zola Djenane</strong>, <strong>Idlès Art Gallery</strong> est née avec l'ambition de créer un espace d'échange ouvert, inclusif et chaleureux, au sein de l'univers Miro.</p>
+    <p>Le nom <strong>Idlès</strong> s'inspire de sa signification — la <strong>culture</strong> — qui incarne à elle seule la vocation de la galerie. Il évoque la profondeur de la mémoire culturelle et l'imagination inspirée par la majesté du désert algérien.</p>
+    <p>La galerie expose une grande diversité de disciplines : <strong>peinture, sculpture, céramique et photographie</strong>, des grands maîtres algériens aux jeunes talents émergents.</p>
+    <div class="about-signature">
+      <div class="signature-img">ZD</div>
+      <div>
+        <h5 style="font-family: var(--sans); font-size: 1rem; color: var(--cream);">Zola Djenane</h5>
+        <span style="font-size: 0.85rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em;">Fondatrice & Artiste</span>
       </div>
     </div>
   </div>
+  <div class="about-image-wrapper">
+    <img src="gallery_interior.png" alt="Intérieur Idlès" class="about-image">
+  </div>
+</section>
 
-  <!-- --- TOAST --- -->
-  <div class="toast" id="toast-notification">
-    <div class="toast-icon">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+<section class="gallery-section reveal">
+  <div class="gallery-header">
+    <span class="eyebrow">Expositions en cours</span>
+    <h2 class="h2">Collection</h2>
+  </div>
+  
+  <div class="gallery-filters">
+    <button class="filter-btn active" data-filter="all">Tout</button>
+    <button class="filter-btn" data-filter="painting">Peinture</button>
+    <button class="filter-btn" data-filter="sculpture">Sculpture</button>
+    <button class="filter-btn" data-filter="photography">Photographie</button>
+  </div>
+  
+  <div class="gallery-grid" id="gallery-grid">
+    <div class="art-wrapper" data-category="painting">
+      <div class="gallery-item"><img src="art-assekrem.png" alt="Le Crépuscule de l'Assekrem"></div>
+      <div class="art-info">
+        <h3 class="art-title">Le Crépuscule de l'Assekrem</h3>
+        <p class="art-artist">Zola Djenane</p>
+        <p class="art-medium">Acrylique sur toile • 120 × 100 cm</p>
+      </div>
     </div>
-    <div class="toast-content">
-      <h5 class="lang-fr">Succès !</h5><h5 class="lang-en">Success!</h5>
-      <p class="lang-fr" id="toast-msg-fr">Votre message a été transmis avec succès.</p>
-      <p class="lang-en" id="toast-msg-en">Your message has been successfully sent.</p>
+    
+    <div class="art-wrapper" data-category="painting">
+      <div class="gallery-item"><img src="art-fauves.png" alt="Rythmes Fauves"></div>
+      <div class="art-info">
+        <h3 class="art-title">Rythmes Fauves</h3>
+        <p class="art-artist">Habbiba Bensekha</p>
+        <p class="art-medium">Huile sur toile • 90 × 90 cm</p>
+      </div>
+    </div>
+    
+    <div class="art-wrapper" data-category="sculpture">
+      <div class="gallery-item"><img src="art-ceramique.png" alt="Mémoire Nomade"></div>
+      <div class="art-info">
+        <h3 class="art-title">Mémoire Nomade</h3>
+        <p class="art-artist">Lamine Dokman</p>
+        <p class="art-medium">Céramique émaillée • 45 × 30 cm</p>
+      </div>
+    </div>
+    
+    <div class="art-wrapper" data-category="photography">
+      <div class="gallery-item"><img src="art-casbah.png" alt="Les Ruelles de la Casbah"></div>
+      <div class="art-info">
+        <h3 class="art-title">Les Ruelles de la Casbah</h3>
+        <p class="art-artist">Ghiless Sabri</p>
+        <p class="art-medium">Tirage d'art • 60 × 80 cm</p>
+      </div>
+    </div>
+    
+    <div class="art-wrapper" data-category="painting">
+      <div class="gallery-item"><img src="art-reflets.png" alt="Reflets Algérois"></div>
+      <div class="art-info">
+        <h3 class="art-title">Reflets Algérois</h3>
+        <p class="art-artist">Chakib Belhimer</p>
+        <p class="art-medium">Technique mixte • 150 × 120 cm</p>
+      </div>
+    </div>
+    
+    <div class="art-wrapper" data-category="sculpture">
+      <div class="gallery-item"><img src="art-bronze.png" alt="L'Envolée d'Idlès"></div>
+      <div class="art-info">
+        <h3 class="art-title">L'Envolée d'Idlès</h3>
+        <p class="art-artist">Nouredine Chegrane</p>
+        <p class="art-medium">Bronze patiné • 70 × 40 cm</p>
+      </div>
     </div>
   </div>
+</section>
 
-  <script src="app.js"></script>
+<section class="contact-section reveal" id="contact">
+  <div>
+    <span class="eyebrow">Candidatures</span>
+    <h2 class="h2">Exposer chez Idlès</h2>
+    <p style="margin-top: 20px; color: var(--muted); max-width: 400px;">
+      Nous étudions en permanence les dossiers de nouveaux artistes. Envoyez-nous votre portfolio et votre démarche artistique.
+    </p>
+  </div>
+  <form>
+    <div class="form-group">
+      <label class="form-label">Votre Nom</label>
+      <input type="text" class="form-input" placeholder="Ex: Zola Djenane">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Adresse E-mail</label>
+      <input type="email" class="form-input" placeholder="Ex: contact@zola.com">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Lien vers votre Portfolio</label>
+      <input type="url" class="form-input" placeholder="Instagram, Behance, Site Web...">
+    </div>
+    <button type="button" class="btn">Soumettre ma candidature</button>
+  </form>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-grid">
+    <div>
+      <h5>Découvrir</h5>
+      <a href="index.html">Accueil</a>
+      <a href="menu.html">La Carte</a>
+      <a href="index.html#about">Le Lieu</a>
+      <a href="gallery.html">Galerie d'Art</a>
+    </div>
+    <div>
+      <h5>Contact</h5>
+      <a href="#">contact@mirorestaurant.com</a>
+      <a href="#">+213 555 000 000</a>
+      <a href="#">Alger, Algérie</a>
+    </div>
+    <div>
+      <h5>Horaires</h5>
+      <a href="#">Lun - Dim : 12h00 - 00h00</a>
+      <a href="#">Service continu</a>
+    </div>
+    <div>
+      <h5>Réseaux Sociaux</h5>
+      <a href="https://www.instagram.com/miro.restaurant" target="_blank">Instagram</a>
+      <a href="https://www.tiktok.com/@mirorestaurant.alger" target="_blank">TikTok</a>
+    </div>
+  </div>
+  <div class="footer-brand">IDLÈS GALLERY</div>
+  <div class="footer-bottom">
+    <span>© 2026 Idlès Art Gallery — Tous droits réservés</span>
+    <a href="index.html" style="color: var(--gold);">Miro Restaurant & Lounge</a>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+<script>
+  // 1. Setup SplitText function manually
+  document.querySelectorAll('.text-split').forEach(el => {
+    const text = el.innerText;
+    el.innerHTML = '';
+    const words = text.split(' ');
+    words.forEach((word, i) => {
+      const wSpan = document.createElement('span');
+      wSpan.className = 'word';
+      const innerSpan = document.createElement('span');
+      innerSpan.className = 'word-inner';
+      innerSpan.innerText = word + (i < words.length - 1 ? ' ' : '');
+      wSpan.appendChild(innerSpan);
+      el.appendChild(wSpan);
+    });
+  });
+
+  // 2. Lenis Scroll
+  const lenis = new Lenis({
+    duration: 1.2,
+    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    smooth: true
+  });
+  function raf(time) {
+    lenis.raf(time);
+    requestAnimationFrame(raf);
+  }
+  requestAnimationFrame(raf);
+
+  // GSAP animations
+  gsap.registerPlugin(ScrollTrigger);
+
+  const heroTl = gsap.timeline();
+  heroTl.to('.hero .word-inner', {
+    y: 0, duration: 1, ease: "power4.out", stagger: 0.05, delay: 0.2
+  })
+  .to('.hero-separator', { opacity: 1, width: 120, duration: 0.8, ease: "power2.out" }, "-=0.4");
+
+  // Scroll-triggered reveals
+  document.querySelectorAll('.reveal').forEach(el => {
+    gsap.to(el, {
+      opacity: 1, y: 0, duration: 1, ease: "power3.out",
+      scrollTrigger: { trigger: el, start: "top 85%", once: true }
+    });
+  });
+
+  // Parallax on about image
+  gsap.to('.about-image', {
+    yPercent: -10,
+    ease: "none",
+    scrollTrigger: { trigger: '.about-section', start: 'top bottom', end: 'bottom top', scrub: 1 }
+  });
+
+  // Gallery Filters
+  const filters = document.querySelectorAll('.filter-btn');
+  const items = document.querySelectorAll('.art-wrapper');
+
+  filters.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filters.forEach(f => f.classList.remove('active'));
+      btn.classList.add('active');
+      const cat = btn.getAttribute('data-filter');
+
+      items.forEach(item => {
+        if(cat === 'all' || item.getAttribute('data-category') === cat) {
+          gsap.to(item, { opacity: 1, scale: 1, duration: 0.4, display: 'block' });
+        } else {
+          gsap.to(item, { opacity: 0, scale: 0.9, duration: 0.4, display: 'none' });
+        }
+      });
+    });
+  });
+
+  // Header Scroll
+  window.addEventListener('scroll', () => {
+    if(window.scrollY > 50) {
+      document.getElementById('header').classList.add('scrolled');
+    } else {
+      document.getElementById('header').classList.remove('scrolled');
+    }
+  });
+
+  // Pixel Trail Effect
+  const heroSection = document.getElementById('hero');
+  const pixelWrapper = document.getElementById('pixel-trail-wrapper');
+  let pixelCols = 0; let pixelRows = 0; let pixelSize = 32;
+
+  function initPixelTrail() {
+    if(!pixelWrapper) return;
+    pixelWrapper.innerHTML = '';
+    pixelSize = window.innerWidth < 768 ? 24 : 32;
+    pixelCols = Math.ceil(heroSection.offsetWidth / pixelSize);
+    pixelRows = Math.ceil(heroSection.offsetHeight / pixelSize);
+    
+    for (let r = 0; r < pixelRows; r++) {
+      const row = document.createElement('div');
+      row.style.display = 'flex';
+      for (let c = 0; c < pixelCols; c++) {
+        const px = document.createElement('div');
+        px.className = 'pixel-dot';
+        px.style.width = pixelSize + 'px';
+        px.style.height = pixelSize + 'px';
+        row.appendChild(px);
+      }
+      pixelWrapper.appendChild(row);
+    }
+  }
+
+  if(heroSection) {
+    heroSection.addEventListener('mousemove', (e) => {
+      if (!pixelCols) return;
+      const rect = heroSection.getBoundingClientRect();
+      const x = Math.floor((e.clientX - rect.left) / pixelSize);
+      const y = Math.floor((e.clientY - rect.top) / pixelSize);
+      
+      if (x >= 0 && x < pixelCols && y >= 0 && y < pixelRows) {
+        const row = pixelWrapper.children[y];
+        if (row) {
+          const px = row.children[x];
+          if (px) {
+            px.style.transition = 'none';
+            px.style.opacity = '1';
+            void px.offsetWidth; // Trigger reflow
+            px.style.transition = 'opacity 0.6s ease-out';
+            px.style.opacity = '0';
+          }
+        }
+      }
+    });
+
+    window.addEventListener('resize', () => {
+      clearTimeout(window.resizeTimer);
+      window.resizeTimer = setTimeout(initPixelTrail, 250);
+    });
+    initPixelTrail();
+  }
+</script>
 </body>
 </html>
